@@ -1,3 +1,5 @@
+import { EProductType } from "../constants";
+
 export interface PercentSale {
   type: "percent";
   percent: number;
@@ -49,8 +51,12 @@ export type TProduct = {
   id: number;
   name: string;
   image: string;
+  thumbnail: string;
   price: number;
+  desc: string;
   categoryId: number;
+  variants?: Variant[];
+  type: EProductType;
 };
 
 export type TService = {

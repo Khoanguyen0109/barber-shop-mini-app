@@ -27,9 +27,9 @@ export const shippingFeeState = selector({
   key: "shippingFee",
   get: ({ get }) => {
     const setting = get(settingState);
-    return (
-      Number(setting.find((item) => item.name === "shippingFee").value) || 0
-    );
+    return setting.find((item) => item.name === "shippingFee")
+      ? Number(setting.find((item) => item.name === "shippingFee").value)
+      : 0;
   },
 });
 

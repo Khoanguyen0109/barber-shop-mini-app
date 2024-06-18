@@ -22,8 +22,8 @@ const tabs: Record<string, MenuItem> = {
   },
   "/cart": {
     label: "Giỏ hàng",
-    icon: <RiShoppingCart2Line />,
-    activeIcon: <RiShoppingCart2Fill color={PRIMARY_COLOR} />,
+    icon: <CartIcon />,
+    activeIcon: <CartIcon active />,
   },
   "/schedule": {
     label: "Đặt lịch",

@@ -12,10 +12,11 @@ type Props = {};
 function NewProductList({}: Props) {
   const navigate = useNavigate();
   const hotProduct = useRecoilValue(hotProductsState);
+  console.log("hotProduct", hotProduct);
   const onClick = () => {};
   return (
-    <Box className="min-h-96 p-4">
-      <Box className={"flex flex-row items-center justify-between mt-8"}>
+    <Box className="p-4 h-80 ">
+      <Box className={"flex flex-row items-center justify-between mt-2 mb-4"}>
         <Text className="font-bold text-lg">Sản phẩm nổi bật</Text>
         <PrimaryText className={"mr-3 cursor-pointer color"} onClick={onClick}>
           Xem Tất cả

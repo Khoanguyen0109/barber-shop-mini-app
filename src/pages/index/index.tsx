@@ -10,6 +10,7 @@ import { Divider } from "components/divider";
 import Modules from "./module";
 import NewProductList from "./new-product-list";
 import ServicesList from "./services";
+import VoucherList from "./voucher-list";
 
 const HomePage: React.FunctionComponent = () => {
   return (
@@ -31,6 +32,7 @@ const HomePage: React.FunctionComponent = () => {
         <Inquiry />
         <NewProductList />
         <ServicesList />
+        <VoucherList />
       </Box>
     </Page>
   );

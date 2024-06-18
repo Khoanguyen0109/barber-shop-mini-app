@@ -28,4 +28,9 @@ export enum EUserVoucherStatus {
   USED = "used",
 }
 
+export enum EProductType {
+  PRODUCT = "product",
+  PACKAGE = "package",
+}
+
 export const PRIMARY_COLOR = getConfig((c) => c.template.primaryColor);

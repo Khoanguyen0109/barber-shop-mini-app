@@ -1,6 +1,6 @@
 import React from "react";
 import ReactLoading from "react-loading";
-import logo from "static/logo.png";
+import logo from "assets/logo.png";
 
 type Props = {};
 

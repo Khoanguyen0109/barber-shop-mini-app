@@ -7,6 +7,7 @@ import { Picker } from "zmp-ui";
 
 export const TimePicker: FC = () => {
   const [date, setDate] = useState(+new Date());
+  console.log("date", date);
   const [time, setTime] = useRecoilState(selectedDeliveryTimeState);
 
   const availableDates = useMemo(() => {
@@ -37,8 +38,8 @@ export const TimePicker: FC = () => {
     time.setSeconds(0);
     time.setMilliseconds(0);
     const endTime = new Date();
-    endTime.setHours(21);
-    endTime.setMinutes(0);
+    endTime.setHours(23);
+    endTime.setMinutes(59);
     endTime.setSeconds(0);
     endTime.setMilliseconds(0);
     while (time <= endTime) {
@@ -65,7 +66,7 @@ export const TimePicker: FC = () => {
       formatPickedValueDisplay={({ date, time }) =>
         date && time
           ? `${displayHalfAnHourTimeRange(new Date(time.value))}, ${displayDate(
-              new Date(date.value),
+              new Date(date.value)
             )}`
           : `Chọn thời gian`
       }
@@ -93,6 +94,7 @@ export const TimePicker: FC = () => {
           name: "date",
         },
       ]}
+      // data={[]}
     />
   );
 };
