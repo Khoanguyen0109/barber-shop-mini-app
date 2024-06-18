@@ -116,3 +116,22 @@ body {
     }
   }
 }
+
+.zaui-input-prefix {
+  color: #bd5613;
+  background-color: #ffeadc;
+
+  .zaui-btn-icon {
+    color: #bd5613;
+  }
+}
+
+.zaui-input-search {
+  overflow: hidden;
+  color: #bd5613;
+  background-color: #ffeadc;
+}
+
+.zaui-input-search::placeholder {
+  color: #bd5613;
+}

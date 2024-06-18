@@ -1,15 +1,12 @@
 import React from "react";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { Box, Header, Page, Text } from "zmp-ui";
-import {
-  publicDiscountSelector,
-  userVouchersState,
-} from "../../state/discount-state";
-import DiscountItem from "../../components/discount-item";
+
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { voucherSelectedState } from "../cart/state";
-import { ROUTES } from "../route";
-import { discountState } from "../../state";
+import { publicDiscountSelector, userVouchersState } from "../../state/discount-state";
+import { discountState, voucherSelectedState } from "../../state/cart-state";
+import DiscountItem from "../../components/discount-item";
+import { ROUTES } from "../../routes";
 
 type Props = {};
 
@@ -42,7 +39,7 @@ function UserDiscount({}: Props) {
     <Page>
       <Header title="Ưu đãi của tôi" showBackIcon={true} onBackClick={onBack} />
       <Box className="p-2 mt-4">
-        {userVoucherList.map((item) => (
+        {userVoucherList?.map((item) => (
           <DiscountItem
             key={item.id}
             item={item.discounts}

@@ -44,3 +44,18 @@ export interface Product {
   sale?: Sale;
   variants?: Variant[];
 }
+
+export type TProduct = {
+  id: number;
+  name: string;
+  image: string;
+  price: number;
+  categoryId: number;
+};
+
+export type TService = {
+  id: number;
+  name: string;
+  image: string;
+  price: number;
+};

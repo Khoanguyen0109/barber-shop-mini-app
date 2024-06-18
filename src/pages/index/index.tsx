@@ -7,13 +7,16 @@ import { Categories } from "./categories";
 import { Recommend } from "./recommend";
 import { ProductList } from "./product-list";
 import { Divider } from "components/divider";
+import Modules from "./module";
+import NewProductList from "./new-product-list";
+import ServicesList from "./services";
 
 const HomePage: React.FunctionComponent = () => {
   return (
     <Page className="relative flex-1 flex flex-col bg-white">
       <Welcome />
       <Box className="flex-1 overflow-auto">
-        <Inquiry />
+        {/* <Inquiry />
         <Banner />
         <Suspense>
           <Categories />
@@ -22,7 +25,12 @@ const HomePage: React.FunctionComponent = () => {
         <Recommend />
         <Divider />
         <ProductList />
-        <Divider />
+        <Divider /> */}
+        <Banner />
+        <Modules />
+        <Inquiry />
+        <NewProductList />
+        <ServicesList />
       </Box>
     </Page>
   );

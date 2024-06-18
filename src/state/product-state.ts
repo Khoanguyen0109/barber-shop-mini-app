@@ -1,5 +1,5 @@
 import { atom, selector, selectorFamily } from "recoil";
-import { Product } from "types/product";
+import { Product, TProduct } from "types/product";
 import supabase from "../client/client";
 import { groupBy } from "lodash";
 import { Category } from "../types/category";
@@ -24,7 +24,19 @@ export const categoriesState = selector<Category[]>({
   key: "categories",
   get: async () => {
     const { data } = await supabase.from("categories").select();
-    return data;
+    return data || [];
+  },
+});
+
+export const hotProductsState = selector<TProduct[]>({
+  key: "hotProducts",
+  get: async ({ get }) => {
+    const { data, error } = await supabase
+      .from("products")
+      .select(`*, inventories: product_inventories(*)`)
+      .eq("level", "Hot")
+      .eq("active", true);
+    return data?.map((item) => mapProduct(item)) || [];
   },
 });
 
@@ -35,7 +47,7 @@ export const productsState = selector<Product[]>({
       .from("products")
       .select(`*, inventories: product_inventories(*)`)
       .eq("active", true);
-    return data?.map((item) => mapProduct(item));
+    return data?.map((item) => mapProduct(item)) || [];
   },
 });
 
@@ -54,4 +66,15 @@ export const productsByCategoryState = selectorFamily<Product[], string>({
         (product) => product.categoryId.toString() === categoryId
       );
     },
+});
+
+export const servicesSelector = selector({
+  key: "servicesSelector",
+  get: async ({ get }) => {
+    const { data, error } = await supabase
+      .from("services")
+      .select("*")
+      .eq("active", true);
+    return data || [];
+  },
 });

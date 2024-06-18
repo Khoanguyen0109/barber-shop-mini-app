@@ -4,24 +4,36 @@ import { useLocation, useNavigate } from "react-router";
 import { MenuItem } from "types/menu";
 import { BottomNavigation, Icon } from "zmp-ui";
 import { CartIcon } from "./cart-icon";
+import { RiHome3Fill } from "react-icons/ri";
+import { RiHome3Line } from "react-icons/ri";
+import { RiShoppingCart2Line } from "react-icons/ri";
+import { RiShoppingCart2Fill } from "react-icons/ri";
+import { PRIMARY_COLOR } from "../constants";
+import { RiCalendarScheduleLine } from "react-icons/ri";
+import { RiCalendarScheduleFill } from "react-icons/ri";
+import { MdOutlineAccountCircle } from "react-icons/md";
+import { MdAccountCircle } from "react-icons/md";
 
 const tabs: Record<string, MenuItem> = {
   "/": {
     label: "Trang chủ",
-    icon: <Icon icon="zi-home" />,
-  },
-  "/notification": {
-    label: "Thông báo",
-    icon: <Icon icon="zi-notif" />,
+    icon: <RiHome3Line />,
+    activeIcon: <RiHome3Fill color={PRIMARY_COLOR} />,
   },
   "/cart": {
     label: "Giỏ hàng",
-    icon: <CartIcon />,
-    activeIcon: <CartIcon active />,
+    icon: <RiShoppingCart2Line />,
+    activeIcon: <RiShoppingCart2Fill color={PRIMARY_COLOR} />,
+  },
+  "/schedule": {
+    label: "Đặt lịch",
+    icon: <RiCalendarScheduleLine />,
+    activeIcon: <RiCalendarScheduleFill color={PRIMARY_COLOR} />,
   },
   "/profile": {
-    label: "Cá nhân",
-    icon: <Icon icon="zi-user" />,
+    label: "Tài khoản",
+    icon: <MdOutlineAccountCircle />,
+    activeIcon: <MdAccountCircle color={PRIMARY_COLOR} />,
   },
 };
 

@@ -1,3 +1,5 @@
+import { getConfig } from "../utils/config";
+
 export enum ERoles {
   SHIPPER = "shipper",
   CTV = "ctv",
@@ -20,3 +22,10 @@ export enum EPrizeStatus {
   Received = "received",
   Cancel = "cancel",
 }
+
+export enum EUserVoucherStatus {
+  UNUSED = "unused",
+  USED = "used",
+}
+
+export const PRIMARY_COLOR = getConfig((c) => c.template.primaryColor);

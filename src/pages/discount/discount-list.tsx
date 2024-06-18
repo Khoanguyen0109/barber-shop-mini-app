@@ -1,21 +1,22 @@
 import React, { useState } from "react";
 import { Box, Header, Modal, Page, Text } from "zmp-ui";
-import { DisplayCoinNoMoney } from "../../components/display/display-coin-with-no-money";
 import { CiDiscount1 } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
 import { userState, userTotalPointState } from "../../state";
 import { useRecoilState, useRecoilValue } from "recoil";
+
+import logo from "static/logo.png";
+import supabase from "../../client/client";
 import {
   payableDiscountSelector,
   userVouchersState,
 } from "../../state/discount-state";
-import DiscountItem from "../../components/discount-item";
-import logo from "static/logo.jpg";
-import useCustomSnackbar from "../../hooks/useCustomSnackbar";
-import { ROUTES } from "../route";
-import supabase from "../../client/client";
 import { TDiscount } from "../../types/discount";
-import { EUserVoucherStatus } from "../../constantsapp";
+import useCustomSnackbar from "../../hook/useCustomSnackbar";
+import { EUserVoucherStatus } from "../../constants";
+import { DisplayCoinNoMoney } from "../../components/display/display-coin-with-no-money";
+import DiscountItem from "../../components/discount-item";
+import { ROUTES } from "../../routes";
 type Props = {};
 
 function DiscountList({}: Props) {

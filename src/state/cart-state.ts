@@ -58,3 +58,8 @@ export const totalPriceState = selector({
     return total;
   },
 });
+
+export const voucherSelectedState = atom({
+  key: "voucherSelectedState",
+  default: null,
+});

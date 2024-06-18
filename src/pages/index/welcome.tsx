@@ -8,7 +8,8 @@ import { getConfig } from "utils/config";
 
 export const Welcome: FC = () => {
   const user = useRecoilValueLoadable(userState);
-
+  const avatar =
+    user.contents?.avatar || getConfig((c) => c.template.headerLogo) || logo;
   return (
     <Header
       className="app-header no-border pl-4 flex-none pb-[6px]"
@@ -16,10 +17,7 @@ export const Welcome: FC = () => {
       title={
         (
           <Box flex alignItems="center" className="space-x-2">
-            <img
-              className="w-8 h-8 rounded-lg border-inset"
-              src={getConfig((c) => c.template.headerLogo) || logo}
-            />
+            <img className="w-8 h-8 rounded-lg border-inset" src={avatar} />
             <Box>
               <Text.Title size="small">{appConfig.app.title}</Text.Title>
               {user.state === "hasValue" ? (

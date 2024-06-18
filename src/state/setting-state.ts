@@ -5,7 +5,7 @@ export const settingState = selector({
   key: "settings",
   get: async () => {
     const { data, error } = await supabase.from("settings").select();
-    return data;
+    return data || [];
   },
 });
 
@@ -14,5 +14,13 @@ export const minOrderItemSelector = selector({
   get: ({ get }) => {
     const setting = get(settingState);
     return Number(setting.find((item) => item.name === "min").value) || 5;
+  },
+});
+
+export const bannerState = selector({
+  key: "banner",
+  get: ({ get }) => {
+    const setting = get(settingState);
+    return setting.filter((item) => item.type === "panel");
   },
 });

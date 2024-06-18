@@ -43,6 +43,19 @@ export const userState = selector({
   },
 });
 
+const totalPointSelector = selector({
+  key: "totalPointSelector",
+  get: ({ get }) => {
+    const user = get(userState);
+    return user.totalPoint;
+  },
+});
+
+export const userTotalPointState = atom({
+  key: "userTotalPointState",
+  default: totalPointSelector,
+});
+
 export const categoriesState = selector<Category[]>({
   key: "categories",
   get: () => categories,
