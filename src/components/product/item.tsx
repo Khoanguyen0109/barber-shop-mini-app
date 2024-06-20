@@ -11,7 +11,7 @@ export const ProductItem: FC<{ product: TProduct }> = ({ product }) => {
     <NewProductPicker product={product}>
       {({ open }) => (
         <div
-          className="space-y-2  w-48  border-[2px] border-solid border-neutral-200 shadow-md rounded-lg  "
+          className="space-y-2  w-48 border-solid border-neutral-200 shadow-md rounded-lg  "
           onClick={open}
         >
           <Box className="w-full h-32 relative border-b-[1px] border-solid border-neutral-200 ">
@@ -22,7 +22,7 @@ export const ProductItem: FC<{ product: TProduct }> = ({ product }) => {
             />
           </Box>
           <Box className="p-2 m-0">
-            <Text className="text-lg font-bold">{product.name}</Text>
+            <Text className=" font-bold">{product.name}</Text>
             <PrimaryText className="text-gray pb-2 font-bold">
               <FinalPrice>{product}</FinalPrice>
             </PrimaryText>

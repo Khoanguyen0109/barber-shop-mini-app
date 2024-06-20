@@ -12,14 +12,15 @@ function ServicesList({}: Props) {
   const services = useRecoilValue(servicesSelector);
   const onClick = () => {};
   return (
-    <Box className="min-h-96 p-4">
-      <Box className={"flex flex-row items-center justify-between mt-8"}>
+    <Box className="p-4 h-80 ">
+      <Box className={"flex flex-row items-center justify-between mt-4 mb-4"}>
         <Text className="font-bold text-lg">Dịch vụ nổi bật</Text>
         <PrimaryText className={"mr-3 cursor-pointer color"} onClick={onClick}>
           Xem Tất cả
         </PrimaryText>
       </Box>
       <Swiper
+        id="service-slider"
         slidesPerView={2.1}
         centeredSlides={false}
         freeMode={true}

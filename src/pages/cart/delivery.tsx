@@ -16,14 +16,14 @@ export const Delivery: FC = () => {
       <Text.Header>Hình thức nhận hàng</Text.Header>
       <ListRenderer
         items={[
-          {
-            left: <Icon icon="zi-location" className="my-auto" />,
-            right: (
-              <Suspense fallback={<RequestStorePickerLocation />}>
-                <StorePicker />
-              </Suspense>
-            ),
-          },
+          // {
+          //   left: <Icon icon="zi-location" className="my-auto" />,
+          //   right: (
+          //     <Suspense fallback={<RequestStorePickerLocation />}>
+          //       <StorePicker />
+          //     </Suspense>
+          //   ),
+          // },
           {
             left: <Icon icon="zi-clock-1" className="my-auto" />,
             right: (
@@ -38,14 +38,14 @@ export const Delivery: FC = () => {
               </Box>
             ),
           },
-          {
-            left: <Icon icon="zi-user" className="my-auto" />,
-            right: (
-              <Suspense fallback={<RequestPersonPickerPhone />}>
-                <PersonPicker />
-              </Suspense>
-            ),
-          },
+          // {
+          //   left: <Icon icon="zi-user" className="my-auto" />,
+          //   right: (
+          //     <Suspense fallback={<RequestPersonPickerPhone />}>
+          //       <PersonPicker />
+          //     </Suspense>
+          //   ),
+          // },
           {
             left: <Icon icon="zi-note" className="my-auto" />,
             right: (

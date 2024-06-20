@@ -4,6 +4,12 @@ export enum ERoles {
   SHIPPER = "shipper",
   CTV = "ctv",
 }
+export enum EOrderStatus {
+  WAITING = "waiting",
+  DELIVERING = "delivering",
+  DELIVERED = "delivered",
+  CANCEL = "cancel",
+}
 
 export enum ECommissionRequest {
   WAITING = "waiting",

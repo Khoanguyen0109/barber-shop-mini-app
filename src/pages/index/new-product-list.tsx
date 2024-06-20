@@ -23,6 +23,7 @@ function NewProductList({}: Props) {
         </PrimaryText>
       </Box>
       <Swiper
+        id="service-slider"
         slidesPerView={2.1}
         centeredSlides={false}
         freeMode={true}

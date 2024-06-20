@@ -7,7 +7,6 @@ export type TDiscount = {
   public: boolean;
   active: boolean;
   thumbnail: string;
-  panel: string;
   desc: string;
   point: number;
   title: string;

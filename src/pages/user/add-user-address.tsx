@@ -7,27 +7,26 @@ import {
   useRecoilValue,
   useSetRecoilState,
 } from "recoil";
-import { Box, Button, Header, Icon, Page, Select } from "zmp-ui";
+import { Box, Button, Header, Icon, Input, Page, Select } from "zmp-ui";
+
 import {
-  addressesState,
+  createSearchParams,
+  useNavigate,
+  useSearchParams,
+} from "react-router-dom";
+import { addressesState, userState } from "state";
+import supabase from "../../client/client";
+import {
   districtState,
   provinceState,
   selectedDistrictId,
   selectedProvinceId,
   selectedWardId,
   wardState,
-} from "./state";
-import AppInput from "components/customize/Input";
-import ErrorText from "components/customize/ErrorText";
-import {
-  createSearchParams,
-  useNavigate,
-  useSearchParams,
-} from "react-router-dom";
-import { ROUTES } from "pages/route";
-import { userState } from "state";
-import { addressSelectedState } from "pages/cart/state";
-import supabase from "../../client/client";
+} from "../../state/address-state";
+import { addressSelectedState } from "../../state/cart-state";
+import ErrorText from "../../components/customize/ErrorText";
+import { ROUTES } from "../../routes";
 const { Option } = Select;
 
 type Props = {};
@@ -119,7 +118,7 @@ function AddUserAddress({}: Props) {
 
       <form className="p-4 flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         <Box>
-          <AppInput
+          <Input
             placeholder={`Nhập ${getFieldName("phone")} `}
             label={getFieldName("phone")}
             type="number"
@@ -129,7 +128,7 @@ function AddUserAddress({}: Props) {
           />
         </Box>
         <Box mt={4}>
-          <AppInput
+          <Input
             placeholder={`Nhập ${getFieldName("name")} `}
             label={getFieldName("name")}
             errorText={getErrorMessage("name")}
@@ -138,7 +137,7 @@ function AddUserAddress({}: Props) {
           />
         </Box>
         <Box mt={4}>
-          <AppInput
+          <Input
             label={getFieldName("address")}
             placeholder={`Nhập ${getFieldName("address")} `}
             errorText={getErrorMessage("address")}
@@ -249,7 +248,6 @@ function AddUserAddress({}: Props) {
         <Button
           loading={loading}
           htmlType="submit"
-          // className="w-full"
           suffixIcon={<Icon icon="zi-add-user" />}
         >
           {addressSelected ? "Cập nhật địa chỉ" : " Thêm địa chỉ"}

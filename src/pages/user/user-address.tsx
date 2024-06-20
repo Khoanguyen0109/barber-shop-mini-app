@@ -1,5 +1,4 @@
 import { ListRenderer } from "components/list-renderer";
-import { ROUTES } from "pages/route";
 import React from "react";
 import {
   createSearchParams,
@@ -8,9 +7,10 @@ import {
 } from "react-router-dom";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { Box, Button, Header, Icon, Page, Text } from "zmp-ui";
-import { addressesState } from "./state";
-import { addressSelectedState } from "pages/cart/state";
-import { getAddress } from "utils";
+import { addressesState } from "../../state";
+import { addressSelectedState } from "../../state/cart-state";
+import { ROUTES } from "../../routes";
+import { getAddress } from "../../utils";
 
 type Props = {};
 

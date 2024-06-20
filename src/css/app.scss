@@ -1,5 +1,7 @@
 body {
-  background-color: var(--zmp-background-color);
+  font-family: "Noto Sans", Inter, system-ui, Avenir, Helvetica, Arial,
+    sans-serif;
+  background-color: #f4f5f6;
   user-select: none;
 }
 
@@ -134,4 +136,11 @@ body {
 
 .zaui-input-search::placeholder {
   color: #bd5613;
+}
+
+#service-slider {
+  .swiper-slide {
+    width: fit-content !important;
+    padding-bottom: 8px;
+  }
 }

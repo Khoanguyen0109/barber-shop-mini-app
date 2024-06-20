@@ -1,3 +1,4 @@
+import { isEmpty } from "lodash";
 import React, { FC, useMemo, useState } from "react";
 import { useRecoilState } from "recoil";
 import { selectedDeliveryTimeState } from "state";
@@ -57,12 +58,12 @@ export const TimePicker: FC = () => {
       inputClass="border-none bg-transparent text-sm text-primary font-medium text-md m-0 p-0 h-auto"
       placeholder="Chọn thời gian nhận hàng"
       title="Thời gian nhận hàng"
-      value={{
-        date,
-        time: availableTimes.find((t) => +t === time)
-          ? time
-          : +availableTimes[0],
-      }}
+      // value={{
+      //   date,
+      //   time: availableTimes.find((t) => +t === time)
+      //     ? time
+      //     : +availableTimes[0],
+      // }}
       formatPickedValueDisplay={({ date, time }) =>
         date && time
           ? `${displayHalfAnHourTimeRange(new Date(time.value))}, ${displayDate(
@@ -78,22 +79,26 @@ export const TimePicker: FC = () => {
           setTime(+time.value);
         }
       }}
-      data={[
-        {
-          options: availableTimes.map((time, i) => ({
-            displayName: displayHalfAnHourTimeRange(time),
-            value: +time,
-          })),
-          name: "time",
-        },
-        {
-          options: availableDates.map((date, i) => ({
-            displayName: displayDate(date, true),
-            value: +date,
-          })),
-          name: "date",
-        },
-      ]}
+      data={
+        isEmpty(availableTimes)
+          ? []
+          : [
+              {
+                options: availableTimes.map((time, i) => ({
+                  displayName: displayHalfAnHourTimeRange(time),
+                  value: +time,
+                })),
+                name: "time",
+              },
+              {
+                options: availableDates.map((date, i) => ({
+                  displayName: displayDate(date, true),
+                  value: +date,
+                })),
+                name: "date",
+              },
+            ]
+      }
       // data={[]}
     />
   );

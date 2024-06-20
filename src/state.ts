@@ -17,6 +17,7 @@ import { calcFinalPrice } from "utils/product";
 import { wait } from "utils/async";
 import categories from "../mock/categories.json";
 import { upsertUser } from "./api/add-user";
+import supabase from "./client/client";
 
 export const authorizedState = selector({
   key: "authorized",
@@ -293,4 +294,17 @@ export const phoneState = selector<string | boolean>({
 export const orderNoteState = atom({
   key: "orderNote",
   default: "",
+});
+
+
+export const addressesState = selector({
+  key: "addressesState",
+  get: async ({ get }) => {
+    const { id } = get(userState);
+    const { data, error } = await supabase
+      .from("user_addresses")
+      .select()
+      .eq("userId", id);
+    return data;
+  },
 });

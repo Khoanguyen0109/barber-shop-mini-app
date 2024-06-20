@@ -3,7 +3,7 @@ import { Cart } from "../types/cart";
 import { calcFinalPrice } from "../utils/product";
 import { calDiscount } from "../utils/price";
 import { settingState } from "./setting-state";
-import { userState } from "../state";
+import { addressesState, userState } from "../state";
 import supabase from "../client/client";
 
 export const cartState = atom<Cart>({
@@ -59,7 +59,42 @@ export const totalPriceState = selector({
   },
 });
 
+export const preTotalPriceState = selector({
+  key: "preTotalPriceState",
+  get: ({ get }) => {
+    const cart = get(cartState);
+    const total = cart.reduce((total, item) => {
+      if (!item.selected) {
+        return total;
+      }
+      return total + item.quantity * calcFinalPrice(item.product, item.options);
+    }, 0);
+
+    return total;
+  },
+});
+
 export const voucherSelectedState = atom({
   key: "voucherSelectedState",
+  default: null,
+});
+
+export const addressSelectedState = atom({
+  key: "addressSelectedState",
+  default: addressesState?.[0] || null,
+});
+
+export const noteState = atom({
+  key: "note",
+  default: "",
+});
+
+export const dateSelectedState = atom({
+  key: "dateSelectedState",
+  default: new Date(),
+});
+
+export const timeSelectedState = atom({
+  key: "timeSelectedState",
   default: null,
 });

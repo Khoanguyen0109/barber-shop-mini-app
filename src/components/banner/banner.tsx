@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Autoplay, Pagination } from "swiper";
+import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Box } from "zmp-ui";
 
