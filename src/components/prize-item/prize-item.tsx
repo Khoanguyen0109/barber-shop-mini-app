@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import prize from "../../assest/prize-item.svg";
-import copy from "../../assest/copy-btn.svg";
+import prize from "assets/prize-item.svg";
+import copy from "assets/copy-btn.svg";
 import cloneDeep from "lodash/cloneDeep";
 
 import supabase from "../../client/client";

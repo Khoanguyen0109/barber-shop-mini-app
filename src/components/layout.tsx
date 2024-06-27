@@ -25,6 +25,11 @@ import DiscountList from "../pages/discount/discount-list";
 import AllProduct from "../pages/product/all-product";
 import AllPackage from "../pages/product/all-package";
 import PaymentSuccess from "../pages/payment/payment-success";
+import Stores from "../pages/stores/stores";
+import SpinPage from "../pages/spin/spin-page";
+import PrizePage from "../pages/spin/prize";
+import PrizeList from "../pages/spin/prize-list";
+import Filter from "../pages/filter/filter";
 
 if (getSystemInfo().platform === "android") {
   const androidSafeTop = Math.round(
@@ -73,6 +78,16 @@ export const Layout: FC = () => {
             path={ROUTES.PAYMENT_SUCCESS}
             element={<PaymentSuccess />}
           ></Route>
+          <Route path={ROUTES.SPIN} element={<SpinPage />}></Route>
+          <Route path={ROUTES.PRIZE} element={<PrizePage></PrizePage>}></Route>
+
+          <Route
+            path={ROUTES.PRIZE_LIST}
+            element={<PrizeList></PrizeList>}
+          ></Route>
+          <Route path={ROUTES.FILTER_SERVICES} element={<Filter />}></Route>
+
+          <Route path={ROUTES.STORE_LIST} element={<Stores />}></Route>
           <Route path={ROUTES.NOT_FOUND} element={<NotFound />}></Route>
         </Routes>
       </Box>

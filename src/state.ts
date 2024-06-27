@@ -18,6 +18,8 @@ import { wait } from "utils/async";
 import categories from "../mock/categories.json";
 import { upsertUser } from "./api/add-user";
 import supabase from "./client/client";
+import { dateSelectedState } from "./state/cart-state";
+import { isToday } from "date-fns";
 
 export const authorizedState = selector({
   key: "authorized",
@@ -48,7 +50,7 @@ const totalPointSelector = selector({
   key: "totalPointSelector",
   get: ({ get }) => {
     const user = get(userState);
-    return user.totalPoint;
+    return user.point;
   },
 });
 
@@ -296,7 +298,6 @@ export const orderNoteState = atom({
   default: "",
 });
 
-
 export const addressesState = selector({
   key: "addressesState",
   get: async ({ get }) => {
@@ -308,3 +309,24 @@ export const addressesState = selector({
     return data;
   },
 });
+
+// export const calPointUserSelector = selector({
+//   key: "calPointUserSelector",
+//   get: ({ get }) => {
+//     const user = get(userState);
+//     const userPointInday = get(userPointTodayOrderSettingSelector);
+//     const userPointTomorrow = get(userPointTomorrowOrderSettingSelector);
+//     const convertDate = get(dateSelectedState);
+//     const isTodayOrder = isToday(convertDate);
+//     const isTomorrowOrder = isTomorrow(convertDate);
+//     if (user.role === ERoles.CTV) {
+//       return ctvPointOrder;
+//     } else {
+//       if (isTodayOrder) {
+//         return userPointInday;
+//       } else if (isTomorrowOrder) {
+//         return userPointTomorrow;
+//       }
+//     }
+//   },
+// });

@@ -1,51 +1,80 @@
 import { ElasticTextarea } from "components/elastic-textarea";
 import { ListRenderer } from "components/list-renderer";
 import React, { FC, Suspense } from "react";
-import { Box, Icon, Input, Text } from "zmp-ui";
-import { PersonPicker, RequestPersonPickerPhone } from "./person-picker";
-import { RequestStorePickerLocation, StorePicker } from "./store-picker";
-import { TimePicker } from "./time-picker";
-import { useRecoilState } from "recoil";
-import { orderNoteState } from "state";
+import { Box, Icon, Text } from "zmp-ui";
+
+import { createSearchParams, useNavigate } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { ListItem } from "components/list-item";
+import { getAddress } from "utils";
+
+import { CiDiscount1 } from "react-icons/ci";
+import { userState } from "../../state";
+import {
+  addressSelectedState,
+  discountState,
+  noteState,
+} from "../../state/cart-state";
+import { ROUTES } from "../../routes";
 
 export const Delivery: FC = () => {
-  const [note, setNote] = useRecoilState(orderNoteState);
+  const navigate = useNavigate();
+  const user = useRecoilValue(userState);
+  const [note, setNote] = useRecoilState(noteState);
+  const [address, setAddressSelected] = useRecoilState(addressSelectedState);
+  const discount = useRecoilValue(discountState);
+  // const [customer, setCustomerSelected] = useRecoilState(customerSelectedState);
+
+  const navigateFromCart = (route) => {
+    navigate({
+      pathname: route,
+      search: createSearchParams({
+        routeFrom: "cart",
+      }).toString(),
+    });
+  };
+
+  const navigateCTVUserAddress = () => {
+    navigate({
+      pathname: ROUTES.CTV_USER_LIST,
+      search: createSearchParams({
+        routeFrom: "cart",
+      }).toString(),
+    });
+  };
 
   return (
-    <Box className="space-y-3 px-4">
-      <Text.Header>Hình thức nhận hàng</Text.Header>
+    <Box className="space-y-1 mb-3 px-4 mt-2">
+      <Text className="text-md font-bold mb-2 ">Hình thức nhận hàng</Text>
+
       <ListRenderer
+        padding={2}
         items={[
-          // {
-          //   left: <Icon icon="zi-location" className="my-auto" />,
-          //   right: (
-          //     <Suspense fallback={<RequestStorePickerLocation />}>
-          //       <StorePicker />
-          //     </Suspense>
-          //   ),
-          // },
           {
-            left: <Icon icon="zi-clock-1" className="my-auto" />,
+            left: <Icon icon="zi-location" className="my-auto" />,
             right: (
-              <Box flex className="space-x-2">
-                <Box className="flex-1 space-y-[2px]">
-                  <TimePicker />
-                  <Text size="xSmall" className="text-gray">
-                    Thời gian nhận hàng
-                  </Text>
-                </Box>
-                <Icon icon="zi-chevron-right" />
-              </Box>
+              <Suspense>
+                <ListItem
+                  onClick={() => navigateFromCart(ROUTES.USER_ADDRESS)}
+                  title={address?.name ?? "Địa chỉ giao hàng"}
+                  subtitle={
+                    getAddress(address) ?? "Vui lòng chọn địa chỉ giao hàng"
+                  }
+                />
+              </Suspense>
             ),
           },
-          // {
-          //   left: <Icon icon="zi-user" className="my-auto" />,
-          //   right: (
-          //     <Suspense fallback={<RequestPersonPickerPhone />}>
-          //       <PersonPicker />
-          //     </Suspense>
-          //   ),
-          // },
+
+          {
+            left: <Icon icon="zi-check-circle" className="my-auto" />,
+            right: (
+              <ListItem
+                onClick={() => navigateFromCart(ROUTES.USER_VOUCHER)}
+                title={"Voucher"}
+                subtitle={discount?.title || "Sử dụng voucher giảm giá"}
+              />
+            ),
+          },
           {
             left: <Icon icon="zi-note" className="my-auto" />,
             right: (
@@ -54,8 +83,7 @@ export const Delivery: FC = () => {
                   placeholder="Nhập ghi chú..."
                   className="border-none px-0 w-full focus:outline-none"
                   maxRows={4}
-                  value={note}
-                  onChange={(e) => setNote(e.currentTarget.value)}
+                  onChange={(e) => setNote(e.target.value)}
                 />
               </Box>
             ),

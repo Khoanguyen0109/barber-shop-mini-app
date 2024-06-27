@@ -10,6 +10,8 @@ interface ListRendererProps<T> {
   renderKey?: (item: T) => string;
   onClick?: (item: T) => void;
   noDivider?: boolean;
+  gap?: number;
+  padding?: number;
 }
 
 export function ListRenderer<T>({
@@ -21,6 +23,8 @@ export function ListRenderer<T>({
   renderKey,
   onClick,
   noDivider,
+  gap,
+  padding = 4,
 }: ListRendererProps<T>) {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const collapsedItems = useMemo(() => {
@@ -35,14 +39,11 @@ export function ListRenderer<T>({
           <div
             key={renderKey ? renderKey(item) : i}
             onClick={() => onClick?.(item)}
-            className="flex space-x-4 p-4 last:pb-0"
+            className={`flex items-start space-x-1 p-${padding} items-center mb-1`}
           >
             {renderLeft(item)}
-            <Box className="flex-1 min-w-0 relative">
+            <Box className="flex-1 min-w-0 mt-1  relative">
               {renderRight(item)}
-              {!noDivider && i < list.length - 1 && (
-                <hr className="absolute left-0 -right-4 -bottom-4 border-divider border-t-[0.5px]"></hr>
-              )}
             </Box>
           </div>
         ))}
@@ -60,7 +61,7 @@ export function ListRenderer<T>({
           </Button>
         </Box>
       ) : (
-        <Box className="w-full h-4"></Box>
+        <Box className="w-full"></Box>
       )}
     </Box>
   );

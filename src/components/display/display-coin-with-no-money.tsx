@@ -5,7 +5,7 @@ import { getConfig } from "../../utils/config";
 export const DisplayCoinNoMoney: FC<{ children: number | string }> = ({
   children,
 }) => {
-  const symbol = " Xu Mion";
+  const symbol = " Điểm";
   const format = new Intl.NumberFormat().format(
     parseFloat(children.toString())
   );

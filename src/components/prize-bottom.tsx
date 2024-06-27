@@ -2,7 +2,7 @@ import React from "react";
 import { Text, useNavigate } from "zmp-ui";
 import Prize from "../assets/prize.svg";
 import Next from "../assets/next_button.svg";
-import prizeBackground from "../assest/prize_background.png";
+import prizeBackground from "../assets/prize_background.png";
 
 type Props = {};
 

@@ -63,7 +63,7 @@ function DiscountList({}: Props) {
         }
         await supabase
           .from("users")
-          .update({ totalPoint: pointLess })
+          .update({ point: pointLess })
           .eq("id", user.id);
         setConfirmModalVisible(false);
         setSelectDiscount(null);
@@ -82,7 +82,7 @@ function DiscountList({}: Props) {
     <Page>
       <Header title="Ưu đãi" showBackIcon={true}></Header>
 
-      <Box className="flex justify-between items-center p-2 py-4 mb-3 bg-yellow-400 text-white">
+      <Box className="flex justify-between items-center p-2 py-4 mb-3 bg-orange-500  text-white">
         <Box>
           <Text>Điểm có thể sử dụng</Text>
           <Text>

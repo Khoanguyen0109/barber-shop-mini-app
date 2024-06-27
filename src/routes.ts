@@ -7,6 +7,8 @@ export const ROUTES = {
   ALL_PRODUCT: "/all-product",
   ALL_PACKAGE: "/all-package",
   SPIN: "/spin",
+  PRIZE: "/prize",
+  PRIZE_LIST: "/prize-list",
   CHAT_OA: "/chat-oa",
   ORDER_DETAIL: (id) => `/orders/${id}`,
   PRODUCT_DETAIL: (id) => `/products/${id}`,
@@ -30,4 +32,6 @@ export const ROUTES = {
   USER_VOUCHER: "/user-voucher",
 
   STORE_LIST: "/store-list",
+  STORE_DETAIL: (id) => `/store-list/${id}`,
+  FILTER_SERVICES: "/filter",
 };

@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Button, Text } from "zmp-ui";
 import { TDiscount } from "../types/discount";
+import PrimaryText from "./primaryText";
 
 type Props = {
   item: TDiscount;
@@ -12,15 +13,15 @@ type Props = {
 function DiscountItem({ item, onClickRedeem, onChoose, onUpdateItem }: Props) {
   return (
     <Box className="w-full  rounded-md shadow-lg mb-3 overflow-hidden">
-      <img src={item?.panel} className="w-full h-32 object-cover" />
+      <img src={item?.thumbnail} className="w-full h-32 object-cover" />
       <Box className="p-2 flex justify-between items-end">
         <Box className="">
           <Text className="text-lg font-bold">{item?.title}</Text>
 
           {!item?.public && (
-            <Text className="font-semibold text-sm  text-yellow-500">
-              {item?.point || 0} Xu Mion
-            </Text>
+            <PrimaryText className="font-semibold text-sm ">
+              {item?.point || 0} Điểm
+            </PrimaryText>
           )}
         </Box>
         {onClickRedeem && (

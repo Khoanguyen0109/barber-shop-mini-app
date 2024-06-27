@@ -1,7 +1,6 @@
 import React, { Suspense } from "react";
 import { Page, Text, useNavigate } from "zmp-ui";
-import backgroundBackup from "../assest/background3.png";
-import backBtn from "../assest/back-btn.svg";
+import backBtn from "assets/back-btn.svg";
 
 import { useRecoilValue, useRecoilValueLoadable } from "recoil";
 import { openChat } from "zmp-sdk";
@@ -10,9 +9,9 @@ import {
   backGroundPrizeSelector,
   userPrizeListState,
 } from "../../state/spin-state";
-import { OA_ID } from "../../enviroment";
 import CustomButton from "../../components/button/button";
 import PrizeItem from "../../components/prize-item/prize-item";
+import { OA_ID } from "../../enviroment";
 type Props = {};
 
 const List = () => {
@@ -58,7 +57,7 @@ function PrizeList({}: Props) {
   return (
     <Page
       className=" relative pt-12 p-4   bg-no-repeat bg-cover flex flex-col overflow-x-hidden"
-      style={{ backgroundImage: `url(${background ?? backgroundBackup})` }}
+      style={{ backgroundImage: `url(${background ?? ""})` }}
     >
       <div className="flex items-center">
         <img src={backBtn} className=" cursor-pointer" onClick={onGoBack} />
@@ -71,12 +70,6 @@ function PrizeList({}: Props) {
       </Suspense>
       <div className="mb-24"></div>
       <div className="flex-1 "></div>
-      <div className="absolute bottom-0 py-3 right-0 w-full flex justify-center items-center bg-white">
-        <CustomButton
-          label="Liên hệ OA"
-          onClick={openChatScreen}
-        ></CustomButton>
-      </div>
     </Page>
   );
 }

@@ -7,7 +7,7 @@ export const upsertUser = async (zaloUser) => {
     .select()
     .eq("idByApp", zaloUser.id);
   if (data?.length > 0) {
-    return { avatar, ...data[0] };
+    return { ...data[0], avatar };
   } else {
     const { data: newUser } = await supabase
       .from("users")
@@ -17,6 +17,6 @@ export const upsertUser = async (zaloUser) => {
         name: zaloUser.name,
       })
       .select();
-    return { avatar, ...newUser[0] };
+    return { ...newUser[0], avatar };
   }
 };

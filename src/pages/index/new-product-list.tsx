@@ -6,14 +6,16 @@ import { Box, Text } from "zmp-ui";
 import { hotProductsState } from "../../state/product-state";
 import { ProductItem } from "components/product/item";
 import PrimaryText from "../../components/primaryText";
+import { ROUTES } from "../../routes";
 
 type Props = {};
 
 function NewProductList({}: Props) {
   const navigate = useNavigate();
   const hotProduct = useRecoilValue(hotProductsState);
-  console.log("hotProduct", hotProduct);
-  const onClick = () => {};
+  const onClick = () => {
+    navigate(ROUTES.ALL_PRODUCT);
+  };
   return (
     <Box className="p-4 h-80 ">
       <Box className={"flex flex-row items-center justify-between mt-2 mb-4"}>

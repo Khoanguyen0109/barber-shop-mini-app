@@ -8,7 +8,6 @@ import { Picker } from "zmp-ui";
 
 export const TimePicker: FC = () => {
   const [date, setDate] = useState(+new Date());
-  console.log("date", date);
   const [time, setTime] = useRecoilState(selectedDeliveryTimeState);
 
   const availableDates = useMemo(() => {

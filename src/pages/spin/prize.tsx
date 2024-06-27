@@ -1,7 +1,7 @@
 import React from "react";
 import { Page } from "zmp-ui";
-import prize from "../assest/prize.svg";
-import backgroundBackup from "../assest/background2.png";
+import prize from "assets/prize.svg";
+import backgroundBackup from "assets/background2.png";
 
 import { useNavigate } from "react-router-dom";
 

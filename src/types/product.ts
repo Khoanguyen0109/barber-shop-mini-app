@@ -59,9 +59,3 @@ export type TProduct = {
   type: EProductType;
 };
 
-export type TService = {
-  id: number;
-  name: string;
-  image: string;
-  price: number;
-};
