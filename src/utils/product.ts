@@ -1,8 +1,9 @@
 import { createOrder } from "zmp-sdk";
-import { Option, Product } from "types/product";
+import { Option, Product, TProduct } from "types/product";
 import { getConfig } from "./config";
 import { SelectedOptions } from "types/cart";
 import { capitalize, isEqual } from "lodash";
+import { TService } from "../types/services";
 
 // export function calcFinalPrice(product: Product, options?: SelectedOptions) {
 //   let finalPrice = product.price;
@@ -46,8 +47,11 @@ import { capitalize, isEqual } from "lodash";
 //   }
 //   return finalPrice;
 // }
-export function calcFinalPrice(product: Product, options?: SelectedOptions) {
-  let finalPrice = product.costdown || product.price;
+export function calcFinalPrice(
+  product: TProduct | TService,
+  options?: SelectedOptions
+) {
+  let finalPrice = product.price;
   // const variant = findVariant(product, options);
   // if (variant) {
   //   return variant.price;

@@ -34,4 +34,8 @@ export const ROUTES = {
   STORE_LIST: "/store-list",
   STORE_DETAIL: (id) => `/store-list/${id}`,
   FILTER_SERVICES: "/filter",
+
+  BOOKING: "/booking",
+  VERIFY_BOOKING: "/verify-booking",
+
 };

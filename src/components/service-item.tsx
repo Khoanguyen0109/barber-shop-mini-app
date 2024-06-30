@@ -1,24 +1,23 @@
 import React from "react";
-import { TService } from "../types/product";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../routes";
 import { Box, Button, Text } from "zmp-ui";
 import PrimaryText from "./primaryText";
 import { FinalPrice } from "./display/final-price";
+import { TService } from "../types/services";
 
 type Props = {
   item: TService;
+  onClick: (item) => void;
 };
 
-function ServiceItem({ item }: Props) {
+function ServiceItem({ item, onClick }: Props) {
   const navigate = useNavigate();
-  const onClick = () => {
-    navigate(ROUTES.STORE_LIST);
-  };
+
   return (
     <div
-      className="space-y-2  w-48   border-solid border-neutral-200 shadow-md rounded-lg  "
-      onClick={onClick}
+      className="space-y-2  max-w-48    border-solid border-neutral-200 shadow-md rounded-lg  "
+      onClick={() => onClick(item)}
     >
       <Box className="w-full h-32 relative border-b-[1px] border-solid border-neutral-200 ">
         <img

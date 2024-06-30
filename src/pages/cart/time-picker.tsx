@@ -54,15 +54,10 @@ export const TimePicker: FC = () => {
       mask
       maskClosable
       onVisibilityChange={(visbile) => matchStatusBarColor(visbile)}
-      inputClass="border-none bg-transparent text-sm text-primary font-medium text-md m-0 p-0 h-auto"
+      // inputClass="border-none bg-transparent text-sm text-primary font-medium text-md m-0 p-0 h-auto"
+      inputClass="text-orange-500 border-orange-500"
       placeholder="Chọn thời gian nhận hàng"
       title="Thời gian nhận hàng"
-      // value={{
-      //   date,
-      //   time: availableTimes.find((t) => +t === time)
-      //     ? time
-      //     : +availableTimes[0],
-      // }}
       formatPickedValueDisplay={({ date, time }) =>
         date && time
           ? `${displayHalfAnHourTimeRange(new Date(time.value))}, ${displayDate(

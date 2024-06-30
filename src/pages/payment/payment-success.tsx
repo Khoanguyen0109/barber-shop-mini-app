@@ -59,7 +59,7 @@ const PaymentSuccess: FC = () => {
       <div className="flex flex-1 flex-col items-center justify-start align-middle p-10">
         <img className="w-40 h-40 mt-20" src={paymentSuccessIcon} />
         <Text.Header className="mb-2 text-center mt-4 font-bold text-xl">
-          Đặt hàng thành công
+          Đặt thành công
         </Text.Header>
         <Text className="mb-4 text-center mt-4  text-lg">
           Cám ơn bạn đã quan tâm đến dịch vụ của Đông Tây Barbershop.

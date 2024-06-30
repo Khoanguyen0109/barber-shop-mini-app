@@ -3,14 +3,20 @@ import { Box, Text } from "zmp-ui";
 import PrimaryText from "../../components/primaryText";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRecoilValue } from "recoil";
-import { servicesSelector } from "../../state/product-state";
 import ServiceItem from "../../components/service-item";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../routes";
+import { servicesSelector } from "../../state/services-state";
 
 type Props = {};
 
 function ServicesList({}: Props) {
+  const navigate = useNavigate();
   const services = useRecoilValue(servicesSelector);
-  const onClick = () => {};
+
+  const onClick = (item) => {
+    navigate(ROUTES.STORE_LIST);
+  };
   return (
     <Box className="p-4 h-80 ">
       <Box className={"flex flex-row items-center justify-between mt-4 mb-4"}>
@@ -29,7 +35,7 @@ function ServicesList({}: Props) {
         {services.length !== 0 &&
           services.map((item, index: number) => (
             <SwiperSlide key={item.id}>
-              <ServiceItem item={item} />
+              <ServiceItem item={item} onClick={onClick} />
             </SwiperSlide>
           ))}
       </Swiper>

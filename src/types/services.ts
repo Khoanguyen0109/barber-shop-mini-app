@@ -1,5 +1,7 @@
 export type TService = {
   id: number;
   name: string;
-  image: string;
+  price: number;
+  thumbnail: string;
+  desc: string;
 };

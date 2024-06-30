@@ -22,8 +22,11 @@ export const storeServicesSelector = selector({
     if (selectedStore) {
       const { data, error } = await supabase
         .from("stores")
-        .select("*, store_services(*)")
+        .select("*, storeServices:store_services(*, services(*))")
         .eq("id", selectedStore?.id);
+      if (data && data.length) {
+        return data[0] || {};
+      }
     }
     return {};
   },

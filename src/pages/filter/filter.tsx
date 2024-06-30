@@ -1,15 +1,30 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
-import { servicesSelector } from "../../state/product-state";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 import { Box, Header, Page, Text } from "zmp-ui";
 import ServiceFilterItem from "../../components/service-filter-item";
+import { selectedServiceState, servicesSelector } from "../../state/services-state";
 
 type Props = {};
 
 function Filter({}: Props) {
   const navigate = useNavigate();
   const services = useRecoilValue(servicesSelector);
+
+  const [selectedServices, setSelectedServices] =
+    useRecoilState(selectedServiceState);
+
+  const onItemClick = (item, isActive) => {
+    if (isActive) {
+      setSelectedServices(selectedServices.filter((ser) => ser.id !== item.id));
+    } else {
+      setSelectedServices([...selectedServices, item]);
+    }
+  };
+
+  const onSelectAll = () => {
+    setSelectedServices([]);
+  };
   return (
     <Page className="bg-white">
       <Header title="Bộ lọc" showBackIcon={true} />
@@ -21,11 +36,26 @@ function Filter({}: Props) {
               id: 0,
               name: "Tất cả",
               image: "",
+              thumbnail: "",
+              price: 0,
             }}
+            isActive={selectedServices.length === 0}
+            onItemClick={onSelectAll}
           />
-          {services.map((item) => (
-            <ServiceFilterItem item={item} />
-          ))}
+          {services.map((item) => {
+            const isActive = Boolean(
+              selectedServices.find((ser) => ser.id === item.id)
+            );
+
+            return (
+              <ServiceFilterItem
+                isActive={isActive}
+                key={item.id}
+                item={item}
+                onItemClick={onItemClick}
+              />
+            );
+          })}
         </Box>
       </Box>
     </Page>

@@ -107,13 +107,13 @@ export const productsByCategoryState = selectorFamily<TProduct[], string>({
     },
 });
 
-export const servicesSelector = selector({
-  key: "servicesSelector",
-  get: async ({ get }) => {
-    const { data, error } = await supabase
-      .from("services")
-      .select("*")
-      .eq("active", true);
-    return data || [];
-  },
-});
+// export const servicesSelector = selector({
+//   key: "servicesSelector",
+//   get: async ({ get }) => {
+//     const { data, error } = await supabase
+//       .from("services")
+//       .select("*")
+//       .eq("active", true);
+//     return data || [];
+//   },
+// });
