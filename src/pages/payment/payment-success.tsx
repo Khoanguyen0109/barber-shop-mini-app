@@ -1,12 +1,12 @@
 import React, { FC, useMemo } from "react";
 import { Button, Header, Icon, Page, Text } from "zmp-ui";
 
-import { followOA } from "zmp-sdk";
+import { followOA, getUserInfo } from "zmp-sdk";
 import { OA_ID } from "enviroment";
 import { useNavigate } from "react-router-dom";
 import Success from "assets/success.png";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
-
+import paymentSuccessIcon from "assets/payment-success-icon.svg";
 import supabase from "../../client/client";
 import logo from "assets/logo.png";
 import { orderNoteState, userState } from "../../state";
@@ -31,9 +31,10 @@ const PaymentSuccess: FC = () => {
     navigate(ROUTES.HOME);
   };
   const updateFollowed = async () => {
+    const zaloUser = await getUserInfo().then((res) => res.userInfo);
     const { error } = await supabase
       .from("users")
-      .update({ followed: true })
+      .update({ followed: true, idByOA: zaloUser.idByOA })
       .eq("id", user.id);
   };
 
@@ -54,14 +55,17 @@ const PaymentSuccess: FC = () => {
   };
 
   return (
-    <Page className="flex flex-col bg-white">
-      <div className="flex flex-1 flex-col justify-center align-middle p-10">
-        <Text.Header className="mb-4 text-center mt-4 font-bold text-lg">
+    <Page className="flex flex-col  bg-orange-500 text-white">
+      <div className="flex flex-1 flex-col items-center justify-start align-middle p-10">
+        <img className="w-40 h-40 mt-20" src={paymentSuccessIcon} />
+        <Text.Header className="mb-2 text-center mt-4 font-bold text-xl">
           Đặt hàng thành công
         </Text.Header>
-
-        <Button variant="primary" onClick={onClick}>
-          Tiếp tục
+        <Text className="mb-4 text-center mt-4  text-lg">
+          Cám ơn bạn đã quan tâm đến dịch vụ của Đông Tây Barbershop.
+        </Text>
+        <Button className="!bg-white text-orange-500 mt-7" onClick={onClick}>
+          Quay về trang chủ
         </Button>
       </div>
     </Page>

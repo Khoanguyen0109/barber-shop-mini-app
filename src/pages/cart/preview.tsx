@@ -25,6 +25,7 @@ import {
 import { userState } from "../../state";
 import { calDiscount } from "../../utils/price";
 import { EOrderStatus, EUserVoucherStatus } from "../../constants";
+import { ROUTES } from "../../routes";
 
 export const CartPreview: FC = () => {
   const cart = useRecoilValue(cartState);
@@ -38,20 +39,12 @@ export const CartPreview: FC = () => {
   const preTotal = useRecoilValue(preTotalPriceState);
   const [note, setNote] = useRecoilState(noteState);
   const resetCart = useResetRecoilState(cartState);
-  const [date, setDate] = useRecoilState(dateSelectedState);
-  const [time, setTime] = useRecoilState(timeSelectedState);
+  // const [date, setDate] = useRecoilState(dateSelectedState);
+  // const [time, setTime] = useRecoilState(timeSelectedState);
   const [discount, setDiscount] = useRecoilState(discountState);
   const [voucherSelected, setVoucherSelected] =
     useRecoilState(voucherSelectedState);
   const { openSnackbar, setDownloadProgress, closeSnackbar } = useSnackbar();
-  const [hours, minutes] = time ? time?.split(":").map(Number) : [0, 0];
-
-  const convertDate: Date = new Date(`${date}`);
-  convertDate.setHours(hours, minutes, 0, 0);
-  const today: Date = new Date();
-  const diffInMilliseconds = convertDate - today;
-  const twoHoursInMilliseconds = 2 * 60 * 60 * 1000;
-  const isMoreThanTwoHoursAhead = diffInMilliseconds > twoHoursInMilliseconds;
 
   const [address, setAddressSelected] = useRecoilState(addressSelectedState);
   const timmerId = useRef();
@@ -82,8 +75,6 @@ export const CartPreview: FC = () => {
           note,
           status: EOrderStatus.WAITING,
           zaloOrderId: data?.orderId,
-          receiveDate: formatDate(new Date(date).toISOString()),
-          receiveTime: time,
           // userPoint: calPointUser,
           // ctvPoint: user.idCTVShared ? ctvCommissionPoint : 0,
         })
@@ -115,31 +106,26 @@ export const CartPreview: FC = () => {
         });
         return acc;
       }, []);
-      await Promise.all([
-        supabase.from("order_details").insert(details),
-        // updateUserPoint(),
-      ]);
+      await Promise.all([supabase.from("order_details").insert(details)]);
       setAddressSelected(null);
-      setDate(new Date());
-      setTime("");
+      setDiscount(null);
       setNote("");
       resetCart();
       navigate(ROUTES.PAYMENT_SUCCESS);
     } catch (error) {
-      console.log("error", error);
-    } finally {
-    }
-  };
-
-  const makePayment = async () => {
-    if (!isMoreThanTwoHoursAhead) {
-      return openSnackbar({
-        text: `Thời gian giao hàng cách tối thiểu 2 giờ`,
+      openSnackbar({
+        text: "Hệ thống có trục trặc, xin liên hệ Admin",
         type: "error",
         icon: true,
         duration: 1000,
       });
+      console.log("error", error);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const makePayment = async () => {
     try {
       if (!address?.id) {
         return openSnackbar({
@@ -175,7 +161,7 @@ export const CartPreview: FC = () => {
       </Box>
       <Button
         type="highlight"
-        disabled={!quantity || loading || !address || !date || !time}
+        disabled={!quantity || loading || !address}
         fullWidth
         onClick={() => makePayment()}
       >

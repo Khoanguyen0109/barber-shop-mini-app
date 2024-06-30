@@ -4,9 +4,22 @@ import { Product, TProduct } from "types/product";
 import { Box, Button, Text } from "zmp-ui";
 import PrimaryText from "../primaryText";
 import { NewProductPicker } from "./new-picker";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../routes";
+import { useRecoilState } from "recoil";
+import { selectedProductState } from "../../state/product-state";
 
 export const ProductItem: FC<{ product: TProduct }> = ({ product }) => {
-  console.log("product", product);
+  const navigate = useNavigate();
+  const [productSelected, setProductSelected] =
+    useRecoilState(selectedProductState);
+  const onClickItemToDetail = (e) => {
+    e.stopPropagation();
+    setProductSelected(product);
+    setTimeout(() => {
+      navigate(ROUTES.PRODUCT_DETAIL(product.id));
+    }, 300);
+  };
   return (
     <NewProductPicker product={product}>
       {({ open }) => (
@@ -19,6 +32,7 @@ export const ProductItem: FC<{ product: TProduct }> = ({ product }) => {
               loading="lazy"
               src={product.thumbnail}
               className="w-full h-full object-cover object-center  bg-skeleton"
+              onClick={onClickItemToDetail}
             />
           </Box>
           <Box className="p-2 m-0 flex flex-col justify-between flex-1">

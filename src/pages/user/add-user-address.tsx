@@ -27,6 +27,7 @@ import {
 import { addressSelectedState } from "../../state/cart-state";
 import ErrorText from "../../components/customize/ErrorText";
 import { ROUTES } from "../../routes";
+import AppInput from "../../components/input";
 const { Option } = Select;
 
 type Props = {};
@@ -36,7 +37,7 @@ function AddUserAddress({}: Props) {
   useRecoilValue(provinceState);
   let [searchParams, setSearchParams] = useSearchParams();
   const routeFrom = searchParams.get("routeFrom");
-
+  const provinces = useRecoilValue(provinceState);
   const setProvinceId = useSetRecoilState(selectedProvinceId);
   const districts = useRecoilValue(districtState);
   const setDistrictId = useSetRecoilState(selectedDistrictId);
@@ -57,6 +58,8 @@ function AddUserAddress({}: Props) {
     mode: "onSubmit",
     defaultValues: addressSelected || { type: "home" },
   });
+  console.log("getValues()", getValues());
+  console.log("errors", errors);
 
   const navigateBack = () => {
     navigate({
@@ -69,7 +72,6 @@ function AddUserAddress({}: Props) {
   const onSubmit = async (value) => {
     try {
       setLoading(true);
-      // await upsertUser(user);
       const { error } = await supabase
         .from("user_addresses")
         .insert({ userId: user.id, ...value });
@@ -118,7 +120,7 @@ function AddUserAddress({}: Props) {
 
       <form className="p-4 flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         <Box>
-          <Input
+          <AppInput
             placeholder={`Nhập ${getFieldName("phone")} `}
             label={getFieldName("phone")}
             type="number"
@@ -128,7 +130,7 @@ function AddUserAddress({}: Props) {
           />
         </Box>
         <Box mt={4}>
-          <Input
+          <AppInput
             placeholder={`Nhập ${getFieldName("name")} `}
             label={getFieldName("name")}
             errorText={getErrorMessage("name")}
@@ -137,7 +139,7 @@ function AddUserAddress({}: Props) {
           />
         </Box>
         <Box mt={4}>
-          <Input
+          <AppInput
             label={getFieldName("address")}
             placeholder={`Nhập ${getFieldName("address")} `}
             errorText={getErrorMessage("address")}
@@ -164,7 +166,7 @@ function AddUserAddress({}: Props) {
             errorText={getErrorMessage("type")}
           />
         </Box>
-        {/* <Box mt={4}>
+        <Box mt={4}>
           <Select
             value={addressSelected?.province}
             label={getFieldName("province")}
@@ -193,7 +195,7 @@ function AddUserAddress({}: Props) {
             show={Boolean(errors?.province)}
             errorText={getErrorMessage("province")}
           />
-        </Box> */}
+        </Box>
         <Box mt={4}>
           <Select
             value={addressSelected?.district}

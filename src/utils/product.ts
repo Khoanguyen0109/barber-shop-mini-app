@@ -107,21 +107,20 @@ export function isIdentical(
   return true;
 }
 
-const pay = (amount: number, description?: string) =>
-  createOrder({
-    desc:
-      description ??
-      `Thanh toán cho ${getConfig((config) => config.app.title)}`,
+const pay = (amount: number, callback: (data: any) => void) => {
+  return createOrder({
+    desc: `Thanh toán cho ${getConfig((config) => config.app.title)}`,
     item: [],
     amount: amount,
     success: (data) => {
-      console.log("Payment success: ", data);
+      console.log("data", data);
+      callback(data);
     },
     fail: (err) => {
       console.log("Payment error: ", err);
     },
   });
-
+};
 export default pay;
 
 export const getOptionString = (options) => {

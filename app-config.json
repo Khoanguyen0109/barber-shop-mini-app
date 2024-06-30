@@ -18,6 +18,7 @@
   "pages": ["/user", "/form", "/dynamic-route", "/about", "/404"],
   "template": {
     "primaryColor": "#FF6602",
+    "secondaryColor": "#FFFFFF",
     "prefixCurrencySymbol": false,
     "currencySymbol": "đ",
     "headerLogo": ""

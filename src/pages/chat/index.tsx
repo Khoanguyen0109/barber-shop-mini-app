@@ -30,7 +30,7 @@ function OpenChat({}: Props) {
     <div className=" w-screen h-screen flex justify-center flex-col items-center">
       <img src={logo} className="w-12 h-12 rounded-lg border-inset" />
       <Button onClick={() => openChatScreen()} className="mt-4">
-        Chat với An Tam Shop
+        Chat với OA
       </Button>
     </div>
   );

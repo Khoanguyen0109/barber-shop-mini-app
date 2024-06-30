@@ -31,7 +31,7 @@ export const globalProductInventoriesSelector = selector({
   },
 });
 
-export const selectedProductState = atom<Product | null>({
+export const selectedProductState = atom<TProduct | null>({
   key: "selectedProduct",
   default: null,
 });

@@ -26,6 +26,8 @@ import supabase from "../../client/client";
 import { productsState, selectedProductState } from "../../state/product-state";
 import { formatPrice } from "../../utils/price";
 import { cartState } from "../../state/cart-state";
+import PrimaryText from "../../components/primaryText";
+import { NewProductPicker } from "../../components/product/new-picker";
 
 type Props = {};
 
@@ -38,6 +40,7 @@ function ProductDetail({}: Props) {
 
   const [productSelected, setProductSelected] =
     useRecoilState(selectedProductState);
+  console.log("productSelected", productSelected);
   const paramsSearch = new URLSearchParams(location.search);
   const ctvId = paramsSearch.get("id_ctv_shared");
   const cart = useRecoilValue(cartState);
@@ -90,29 +93,11 @@ function ProductDetail({}: Props) {
     });
   };
 
-  const saveCTV = async (ctvId) => {
-    try {
-      const { error } = await supabase
-        .from("users")
-        .update({ idCTVShared: ctvId })
-        .eq("id", user.id);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
-  useEffect(() => {
-    if (ctvId) {
-      saveCTV(ctvId);
-    }
-  }, []);
-
   if (!productSelected) {
     return <LoadingScreenOverLay />;
   }
-  console.log("productSelected?.image", productSelected?.image);
   return (
-    <Page className="flex flex-col bg-background">
+    <Page className="flex flex-col bg-white">
       <Header
         title={truncate(productSelected.name, { length: 24 })}
         showBackIcon={true}
@@ -155,21 +140,21 @@ function ProductDetail({}: Props) {
           {productSelected.name}
         </Text.Header>
         <Box className="flex justify-between items-center">
-          <Text size="xLarge" className=" mt-2 pb-2 text-blue-500 font-bold">
+          <PrimaryText size="xLarge" className=" mt-2 pb-2  font-bold">
             <DisplayPrice>{productSelected.price}</DisplayPrice>
-          </Text>
+          </PrimaryText>
           <Box className="flex items-center">
             <Box
               className="mr-3 bg-slate-100 p-2 rounded-full"
               onClick={() => openChatScreen()}
             >
-              <IoChatboxEllipses className="text-blue-600" />
+              <IoChatboxEllipses className="text-orange-600" />
             </Box>
             <Box
               className="mr-3 bg-slate-100 p-2 rounded-full"
               onClick={() => shareCurrentPage()}
             >
-              <FaShare className="text-blue-600" />
+              <FaShare className=" text-orange-500" />
             </Box>
           </Box>
         </Box>
@@ -200,32 +185,24 @@ function ProductDetail({}: Props) {
           )}
         </Text>
       </Box>
-      <Divider size={32} className="flex-1" />
+      <Divider size={32} className="flex-1 !bg-white" />
 
       <Box
         flex
         className="sticky bottom-0 w-full bg-background  p-4 space-x-4 justify-end"
       >
-        <ProductPicker product={productSelected}>
+        <NewProductPicker product={productSelected}>
           {({ open, openRedirect }) => (
             <>
-              <Button
-                style={{ borderColor: "#006af5ƒ" }}
-                className="w-full border border-solid text-xs"
-                variant="secondary"
-                onClick={() => open()}
-              >
-                Thêm vào giỏ hàng
-              </Button>
               <Button
                 className="w-full !border text-xs"
                 onClick={() => openRedirect()}
               >
-                Mua ngay
+                Thêm vào giỏ hàng
               </Button>
             </>
           )}
-        </ProductPicker>
+        </NewProductPicker>
       </Box>
       {/* {cart.length > 0 && (
         <Button
