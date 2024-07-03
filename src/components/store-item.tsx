@@ -1,10 +1,11 @@
 import React from "react";
 import { TStore } from "../types/store";
 import { Box, Icon, Text } from "zmp-ui";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { selectedStoreState } from "../state/store";
 import { ROUTES } from "../routes";
+import { selectServiceState } from "../state/services-state";
 
 type Props = {
   store: TStore;
@@ -13,8 +14,10 @@ type Props = {
 
 function StoreItem({ store, clickAble = false }: Props) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [selectedStore, setSelectedStore] = useRecoilState(selectedStoreState);
-
+  const [serviceSelected, setServiceSelected] =
+    useRecoilState(selectServiceState);
   const onItemClick = () => {
     if (clickAble) {
       setSelectedStore(store);

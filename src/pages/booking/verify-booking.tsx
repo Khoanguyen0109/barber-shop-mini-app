@@ -1,26 +1,69 @@
 import React from "react";
 import { Box, Button, Header, Page, Text } from "zmp-ui";
-import { selectServiceBookingState } from "../../state/booking-state";
-import { useRecoilValue } from "recoil";
+import {
+  bookingListState,
+  dateSelectedState,
+  selectServiceBookingState,
+  timeSelectedState,
+} from "../../state/booking-state";
+import { useRecoilState, useRecoilValue } from "recoil";
 import NotFound from "../error/not-found";
 import PrimaryText from "../../components/primaryText";
 import { DisplayPrice } from "../../components/display/price";
 import { selectedStoreState } from "../../state/store";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes";
+import supabase from "../../client/client";
+import { userState } from "../../state";
+import useCustomSnackbar from "../../hook/useCustomSnackbar";
 
 type Props = {};
 
 function VerifyBooking({}: Props) {
   const navigate = useNavigate();
+  const user = useRecoilValue(userState);
   const selectServiceBooking = useRecoilValue(selectServiceBookingState);
   const selectedStore = useRecoilValue(selectedStoreState);
+  const date = useRecoilValue(dateSelectedState);
+  const time = useRecoilValue(timeSelectedState);
+  const [bookingList, setBookingList] = useRecoilState(bookingListState);
+  const { openSnackbar } = useCustomSnackbar();
 
   if (!selectServiceBooking) {
     return <NotFound />;
   }
-  const onClick = () => {
-    navigate(ROUTES.PAYMENT_SUCCESS);
+  const onClick = async () => {
+    try {
+      const { data } = await supabase
+        .from("schedules")
+        .insert({
+          date,
+          time,
+          userId: user.id,
+          storeServiceId: selectServiceBooking.id,
+        })
+        .select(
+          "*, storeService: store_services(*, store: stores(*), service: services(*))"
+        );
+      console.log("data", data);
+      setBookingList([...bookingList, ...data]);
+      openSnackbar({
+        text: "Đặt lịch thành công",
+        type: "success",
+        icon: true,
+        duration: 2000,
+      });
+      setTimeout(() => {
+        navigate(ROUTES.PAYMENT_SUCCESS);
+      }, 300);
+    } catch (error) {
+      openSnackbar({
+        text: "Đặt lịch không thành công",
+        type: "error",
+        icon: true,
+        duration: 2000,
+      });
+    }
   };
 
   return (

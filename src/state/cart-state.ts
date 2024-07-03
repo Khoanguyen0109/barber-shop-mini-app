@@ -88,13 +88,3 @@ export const noteState = atom({
   key: "note",
   default: "",
 });
-
-export const dateSelectedState = atom({
-  key: "dateSelectedState",
-  default: new Date(),
-});
-
-export const timeSelectedState = atom({
-  key: "timeSelectedState",
-  default: null,
-});

@@ -29,3 +29,8 @@ export const selectStoreByServiceSelector = selector({
     return data;
   },
 });
+
+export const selectServiceState = atom<TService | null>({
+  key: "selectServiceState",
+  default: null,
+});

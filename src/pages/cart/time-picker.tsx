@@ -1,14 +1,16 @@
-import { isEmpty } from "lodash";
 import React, { FC, useMemo, useState } from "react";
 import { useRecoilState } from "recoil";
-import { selectedDeliveryTimeState } from "state";
 import { displayDate, displayHalfAnHourTimeRange } from "utils/date";
 import { matchStatusBarColor } from "utils/device";
 import { Picker } from "zmp-ui";
+import { selectTimeBookingState } from "../../state/booking-state";
 
 export const TimePicker: FC = () => {
   const [date, setDate] = useState(+new Date());
-  const [time, setTime] = useRecoilState(selectedDeliveryTimeState);
+  const [time, setTime] = useState(+new Date());
+  const [deliveryTime, setDeliveryTime] = useRecoilState(
+    selectTimeBookingState
+  );
 
   const availableDates = useMemo(() => {
     const days: Date[] = [];
@@ -32,7 +34,7 @@ export const TimePicker: FC = () => {
       time.setMinutes(minutes);
     } else {
       // Starting time is 7:00
-      time.setHours(7);
+      time.setHours(0);
       time.setMinutes(0);
     }
     time.setSeconds(0);
@@ -48,16 +50,29 @@ export const TimePicker: FC = () => {
     }
     return times;
   }, [date]);
-
   return (
     <Picker
       mask
       maskClosable
-      onVisibilityChange={(visbile) => matchStatusBarColor(visbile)}
-      // inputClass="border-none bg-transparent text-sm text-primary font-medium text-md m-0 p-0 h-auto"
-      inputClass="text-orange-500 border-orange-500"
-      placeholder="Chọn thời gian nhận hàng"
-      title="Thời gian nhận hàng"
+      onVisibilityChange={(visbile) => {
+        matchStatusBarColor(visbile);
+        if (!visbile) {
+          const newDate = new Date(date);
+          const hours = new Date(time).getHours();
+          const minutes = new Date(time).getMinutes();
+          newDate.setHours(hours);
+          newDate.setMinutes(minutes);
+          setDeliveryTime(newDate.getTime());
+        }
+      }}
+      placeholder="Chọn thời gian đặt lịch"
+      title="Thời gian đặt lịch"
+      value={{
+        date,
+        time: availableTimes.find((t) => +t === time)
+          ? time
+          : +availableTimes[0],
+      }}
       formatPickedValueDisplay={({ date, time }) =>
         date && time
           ? `${displayHalfAnHourTimeRange(new Date(time.value))}, ${displayDate(
@@ -66,6 +81,7 @@ export const TimePicker: FC = () => {
           : `Chọn thời gian`
       }
       onChange={({ date, time }) => {
+        console.log("time", time);
         if (date) {
           setDate(+date.value);
         }
@@ -73,27 +89,22 @@ export const TimePicker: FC = () => {
           setTime(+time.value);
         }
       }}
-      data={
-        isEmpty(availableTimes)
-          ? []
-          : [
-              {
-                options: availableTimes.map((time, i) => ({
-                  displayName: displayHalfAnHourTimeRange(time),
-                  value: +time,
-                })),
-                name: "time",
-              },
-              {
-                options: availableDates.map((date, i) => ({
-                  displayName: displayDate(date, true),
-                  value: +date,
-                })),
-                name: "date",
-              },
-            ]
-      }
-      // data={[]}
+      data={[
+        {
+          options: availableDates.map((date, i) => ({
+            displayName: displayDate(date, true),
+            value: +date,
+          })),
+          name: "date",
+        },
+        {
+          options: availableTimes.map((time, i) => ({
+            displayName: displayHalfAnHourTimeRange(time),
+            value: +time,
+          })),
+          name: "time",
+        },
+      ]}
     />
   );
 };

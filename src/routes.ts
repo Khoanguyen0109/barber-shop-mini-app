@@ -38,4 +38,5 @@ export const ROUTES = {
   BOOKING: "/booking",
   VERIFY_BOOKING: "/verify-booking",
 
+  BOOKING_LIST: "/booking-list",
 };

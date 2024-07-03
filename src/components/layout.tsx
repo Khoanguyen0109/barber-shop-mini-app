@@ -33,6 +33,7 @@ import Filter from "../pages/filter/filter";
 import StoreDetail from "../pages/stores/store-detail";
 import Booking from "../pages/booking/booking";
 import VerifyBooking from "../pages/booking/verify-booking";
+import BookingList from "../pages/booking/booking-list";
 
 if (getSystemInfo().platform === "android") {
   const androidSafeTop = Math.round(
@@ -90,6 +91,8 @@ export const Layout: FC = () => {
           ></Route>
           <Route path={ROUTES.FILTER_SERVICES} element={<Filter />}></Route>
           <Route path={ROUTES.BOOKING} element={<Booking />}></Route>
+          <Route path={ROUTES.BOOKING_LIST} element={<BookingList />}></Route>
+
           <Route
             path={ROUTES.VERIFY_BOOKING}
             element={<VerifyBooking />}

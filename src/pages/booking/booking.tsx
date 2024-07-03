@@ -1,33 +1,54 @@
 import React from "react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { Box, Button, Header, Page, Text } from "zmp-ui";
-import { selectServiceBookingState } from "../../state/booking-state";
+import {
+  selectServiceBookingState,
+  selectTimeBookingState,
+} from "../../state/booking-state";
 import NotFound from "../error/not-found";
 import PrimaryText from "../../components/primaryText";
 import StoreItem from "../../components/store-item";
 import { selectedStoreState } from "../../state/store";
 import { TimePicker } from "../cart/time-picker";
-import { Divider } from "../../components/divider";
 import { useNavigate } from "react-router-dom";
 import { DisplayPrice } from "../../components/display/price";
 import { ROUTES } from "../../routes";
+import { selectServiceState } from "../../state/services-state";
 
 type Props = {};
 
 function Booking({}: Props) {
   const navigate = useNavigate();
   const selectServiceBooking = useRecoilValue(selectServiceBookingState);
+  console.log("selectServiceBooking", selectServiceBooking);
+  const [autoSelectService, setAutoSelectService] =
+    useRecoilState(selectServiceState);
+
   const selectedStore = useRecoilValue(selectedStoreState);
+  const timeSelected = useRecoilValue(selectTimeBookingState);
   if (!selectServiceBooking || !selectedStore) {
     return <NotFound />;
   }
 
-  const onClick = ()=>{
-    navigate(ROUTES.VERIFY_BOOKING)
-  }
+  const onClick = () => {
+    navigate(ROUTES.VERIFY_BOOKING);
+  };
+  const onClickBack = () => {
+    if (autoSelectService) {
+      setAutoSelectService(null);
+      navigate(ROUTES.HOME);
+      return;
+    } else {
+      return navigate(ROUTES.STORE_DETAIL(selectedStore.id));
+    }
+  };
   return (
     <Page className="bg-white">
-      <Header title={selectServiceBooking.name} />
+      <Header
+        title={selectServiceBooking.name}
+        showBackIcon
+        onBackClick={onClickBack}
+      />
       <Box className="p-4 flex flex-col h-full">
         <img
           className="w-full h-56 object-fill rounded-md"
@@ -48,7 +69,13 @@ function Booking({}: Props) {
         <Box className="my-8">
           <TimePicker></TimePicker>
         </Box>
-        <Button className="rounded-lg" onClick={onClick}>Đặt lịch</Button>
+        <Button
+          className="rounded-lg"
+          disabled={!timeSelected}
+          onClick={onClick}
+        >
+          Đặt lịch
+        </Button>
       </Box>
     </Page>
   );

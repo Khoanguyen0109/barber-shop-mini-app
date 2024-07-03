@@ -1,11 +1,14 @@
 import React, { useCallback, useState } from "react";
 import { CiSearch } from "react-icons/ci";
-import { useRecoilValue } from "recoil";
-import { Box, Header, Input, Page } from "zmp-ui";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { Box, Header, Input, Page, Text } from "zmp-ui";
 import { storesSelector } from "../../state/store";
 import StoreItem from "../../components/store-item";
 import debounce from "lodash/debounce";
 import { TStore } from "../../types/store";
+import { useLocation, useNavigate } from "react-router-dom";
+import { selectServiceState } from "../../state/services-state";
+import { ROUTES } from "../../routes";
 
 type Props = {};
 
@@ -17,7 +20,10 @@ const normalizeString = (str) => {
 };
 
 function Stores({}: Props) {
+  const navigate = useNavigate();
   const stores = useRecoilValue(storesSelector);
+  const [autoSelectService, setAutoSelectService] =
+    useRecoilState(selectServiceState);
   const [inputValue, setInputValue] = useState("");
 
   const [filteredResults, setFilteredResults] = useState<TStore[]>(stores);
@@ -44,9 +50,16 @@ function Stores({}: Props) {
     debouncedFilter(value);
   };
 
+  const onBackClick = () => {
+    if (autoSelectService) {
+      setAutoSelectService(null);
+    }
+    navigate(ROUTES.HOME);
+  };
+
   return (
     <Page className="flex flex-col bg-white ">
-      <Header title="Tìm kiếm" />
+      <Header title="Tìm kiếm" showBackIcon onBackClick={onBackClick} />
       <Box p={4} className="bg-white flex sticky ">
         <Input.Search
           value={inputValue}
@@ -60,9 +73,15 @@ function Stores({}: Props) {
       </Box>
 
       <Box className="mt-4 p-4">
-        {filteredResults.map((store) => (
-          <StoreItem key={store.id} store={store} clickAble={true} />
-        ))}
+        {filteredResults.length ? (
+          filteredResults.map((store) => (
+            <StoreItem key={store.id} store={store} clickAble={true} />
+          ))
+        ) : (
+          <Box className="text-center">
+            <Text> Không tìm thấy cửa hàng phù hợp</Text>
+          </Box>
+        )}
       </Box>
     </Page>
   );

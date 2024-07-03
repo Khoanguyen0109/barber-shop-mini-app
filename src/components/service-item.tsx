@@ -12,11 +12,9 @@ type Props = {
 };
 
 function ServiceItem({ item, onClick }: Props) {
-  const navigate = useNavigate();
-
   return (
     <div
-      className="space-y-2  max-w-48    border-solid border-neutral-200 shadow-md rounded-lg  "
+      className="space-y-2  min-w-40 max-w-48    border-solid border-neutral-200 shadow-md rounded-lg  "
       onClick={() => onClick(item)}
     >
       <Box className="w-full h-32 relative border-b-[1px] border-solid border-neutral-200 ">

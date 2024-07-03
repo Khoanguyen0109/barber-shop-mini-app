@@ -5,3 +5,5 @@ export type TService = {
   thumbnail: string;
   desc: string;
 };
+
+export type TStoreService = {};

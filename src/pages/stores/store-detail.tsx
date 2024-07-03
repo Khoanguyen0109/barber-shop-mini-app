@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { selectedStoreState, storeServicesSelector } from "../../state/store";
 import StoreItem from "../../components/store-item";
@@ -7,15 +7,18 @@ import NotFound from "../error/not-found";
 import ServiceFilterItem from "../../components/service-filter-item";
 import ServiceItem from "../../components/service-item";
 import { selectServiceBookingState } from "../../state/booking-state";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes";
+import { selectServiceState } from "../../state/services-state";
 
 function StoreDetail() {
+  const location = useLocation();
   const navigate = useNavigate();
   const selectedStore = useRecoilValue(selectedStoreState);
   const [selectServiceBooking, setSelectServiceBooking] = useRecoilState(
     selectServiceBookingState
   );
+  const autoSelectService = useRecoilValue(selectServiceState);
 
   const storeServices = useRecoilValue(storeServicesSelector);
   const [serviceSelected, setServiceSelected] = useState([]);
@@ -52,6 +55,18 @@ function StoreDetail() {
     });
   };
 
+  useEffect(() => {
+    if (filterServices && autoSelectService) {
+      const storeService = filterServices.find(
+        (item) => item.serviceId === autoSelectService.id
+      );
+      console.log("storeService", storeService);
+      onServiceItemClick({
+        ...storeService.services,
+        price: storeService.price,
+      });
+    }
+  }, [services, autoSelectService]);
   return (
     <Page className="bg-white">
       <Header title={selectedStore.name} showBackIcon={true} />

@@ -2,20 +2,25 @@ import React from "react";
 import { Box, Text } from "zmp-ui";
 import PrimaryText from "../../components/primaryText";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import ServiceItem from "../../components/service-item";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes";
-import { servicesSelector } from "../../state/services-state";
+import {
+  selectServiceState,
+  servicesSelector,
+} from "../../state/services-state";
 
 type Props = {};
 
 function ServicesList({}: Props) {
   const navigate = useNavigate();
   const services = useRecoilValue(servicesSelector);
-
+  const [serviceSelected, setServiceSelected] =
+    useRecoilState(selectServiceState);
   const onClick = (item) => {
-    navigate(ROUTES.STORE_LIST);
+    setServiceSelected(item);
+    setTimeout(() => navigate(ROUTES.STORE_LIST), 300);
   };
   return (
     <Box className="p-4 h-80 ">

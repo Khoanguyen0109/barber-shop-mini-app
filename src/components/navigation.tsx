@@ -25,7 +25,7 @@ const tabs: Record<string, MenuItem> = {
     icon: <CartIcon />,
     activeIcon: <CartIcon active />,
   },
-  "/schedule": {
+  "/booking-list": {
     label: "Hoạt động",
     icon: <RiCalendarScheduleLine />,
     activeIcon: <RiCalendarScheduleFill color={PRIMARY_COLOR} />,
@@ -39,7 +39,13 @@ const tabs: Record<string, MenuItem> = {
 
 export type TabKeys = keyof typeof tabs;
 
-export const NO_BOTTOM_NAVIGATION_PAGES = ["/search", "/category", "/result", "/payment-success", "/verify-booking"];
+export const NO_BOTTOM_NAVIGATION_PAGES = [
+  "/search",
+  "/category",
+  "/result",
+  "/payment-success",
+  "/verify-booking",
+];
 
 export const Navigation: FC = () => {
   const [activeTab, setActiveTab] = useState<TabKeys>("/");
