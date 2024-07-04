@@ -67,7 +67,7 @@ function VerifyBooking({}: Props) {
   };
 
   return (
-    <Page className="bg-orange-500 text-whiteservicesSelector flex flex-col">
+    <Page className="bg-orange-500 text-white flex flex-col">
       <Header
         className="bg-orange-500 [&_*]:text-white "
         title="Xác nhận đặt lịch"

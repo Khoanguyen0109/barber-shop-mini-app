@@ -1,5 +1,6 @@
 import { selector } from "recoil";
 import supabase from "../client/client";
+import { userState, userTotalPointState } from "../state";
 
 export const settingState = selector({
   key: "settings",
@@ -22,5 +23,21 @@ export const bannerState = selector({
   get: ({ get }) => {
     const setting = get(settingState);
     return setting.filter((item) => item.type === "panel");
+  },
+});
+
+export const nextPointSelector = selector({
+  key: "nextPointSelector",
+  get: ({ get }) => {
+    const userTotalPoint = get(userTotalPointState);
+    const settings = get(settingState);
+    const scores = settings.filter((item) => item.type === "score");
+    const nextPoint = scores.find(
+      (item) => Number(item.value) > userTotalPoint
+    );
+    if (nextPoint) {
+      return Number(nextPoint?.value);
+    }
+    return 0;
   },
 });

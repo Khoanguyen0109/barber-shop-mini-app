@@ -1,5 +1,16 @@
 import React, { FC, useState } from "react";
-import { Box, Header, Icon, Input, Modal, Page, Select, Text } from "zmp-ui";
+import {
+  Avatar,
+  Box,
+  Header,
+  Icon,
+  Input,
+  Modal,
+  Page,
+  Progress,
+  Select,
+  Text,
+} from "zmp-ui";
 import subscriptionDecor from "static/subscription-decor.svg";
 import { ListRenderer } from "components/list-renderer";
 import { useToBeImplemented } from "hooks";
@@ -7,10 +18,13 @@ import { ROUTES } from "../routes";
 import { useNavigate } from "react-router-dom";
 import useCustomSnackbar from "../hook/useCustomSnackbar";
 import { useRecoilValue } from "recoil";
-import { userState } from "../state";
+import { userState, userTotalOrderState, userTotalPointState } from "../state";
 import supabase from "../client/client";
 const { Option } = Select;
-
+import Badge from "assets/badge.svg";
+import PrimaryText from "../components/primaryText";
+import bg from "assets/profile-bg.png";
+import { nextPointSelector } from "../state/setting-state";
 const Subscription: FC = () => {
   const onClick = useToBeImplemented();
   return (
@@ -44,30 +58,7 @@ const Personal: FC = () => {
     <Box className="m-4">
       <ListRenderer
         title="Cá nhân"
-        // onClick={onClick}
         items={[
-          // {
-          //   left: <Icon icon="zi-user" />,
-          //   right: (
-          //     <Box flex>
-          //       <Text.Header className="flex-1 items-center font-normal">
-          //         Thông tin tài khoản
-          //       </Text.Header>
-          //       <Icon icon="zi-chevron-right" />
-          //     </Box>
-          //   ),
-          // },
-          // {
-          //   left: <Icon icon="zi-clock-2" />,
-          //   right: (
-          //     <Box flex>
-          //       <Text.Header className="flex-1 items-center font-normal">
-          //         Lịch sử đơn hàng
-          //       </Text.Header>
-          //       <Icon icon="zi-chevron-right" />
-          //     </Box>
-          //   ),
-          // },
           {
             left: <Icon icon="zi-clock-2" />,
             right: (
@@ -157,17 +148,6 @@ const Other: FC = () => {
       <ListRenderer
         title="Khác"
         items={[
-          // {
-          //   left: <Icon icon="zi-star" />,
-          //   right: (
-          //     <Box flex>
-          //       <Text.Header className="flex-1 items-center font-normal">
-          //         Đánh giá đơn hàng
-          //       </Text.Header>
-          //       <Icon icon="zi-chevron-right" />
-          //     </Box>
-          //   ),
-          // },
           {
             left: <Icon icon="zi-call" />,
             right: (
@@ -220,12 +200,74 @@ const Other: FC = () => {
 };
 
 const ProfilePage: FC = () => {
+  const user = useRecoilValue(userState);
+  const userTotalPoint = useRecoilValue(userTotalPointState);
+  const userTotalOrder = useRecoilValue(userTotalOrderState);
+  const nextPoint = useRecoilValue(nextPointSelector);
   return (
-    <Page>
-      <Header showBackIcon={false} title="&nbsp;" />
-      <Subscription />
-      <Personal />
-      <Other />
+    <Page className="relative bg-orange-500 text-white flex flex-col">
+      <Header className="bg-orange-500 [&_*]:text-white " title="Thông tin" />
+      <Box className="text-white p-4">
+        <Box className="flex">
+          <Avatar
+            className="mr-4"
+            size={18}
+            src={user.avatar.startsWith("http") ? user.avatar : undefined}
+          />
+          <Box>
+            <Box className="bg-orange-300 text-white rounded-full p-1 px-3">
+              <Text className="font-bold text-xs">
+                {user?.memberClass || "Chưa có hạng"}
+              </Text>
+            </Box>
+
+            <Text className="font-bold ml-2 mt-1">{user.name}</Text>
+          </Box>
+        </Box>
+      </Box>
+      <Box
+        className="absolute text-black  top-36 w-3/4 border-2 border-solid border-orange-500 rounded-2xl left-14 p-4"
+        style={{
+          backgroundImage: `url(${bg})`,
+          backgroundSize: "contain",
+        }}
+      >
+        <Box className="flex mb-6">
+          <img src={Badge}></img>
+          <Box className="ml-2">
+            <Text className="text-xs">Thứ hạng của bạn</Text>
+            <PrimaryText className="font-bold">
+              {user?.memberClass || "Chưa có hạng"}
+            </PrimaryText>
+          </Box>
+        </Box>
+        <Box>
+          <Text className="text-xs mb-2">Để nâng lên thứ hạng tiếp theo</Text>
+          <Box className="w-full flex text-center">
+            <Box className="flex-1">
+              <PrimaryText className="text-sm font-bold ">
+                {userTotalPoint || 0}
+              </PrimaryText>
+              <Text className="text-xs mb-1">Điểm</Text>
+              <Text className="text-xs">
+                {userTotalPoint}/{nextPoint}
+              </Text>
+
+              <Progress
+                strokeColor="#FF6602"
+                completed={userTotalPoint}
+                maxCompleted={nextPoint}
+                trailColor="#ECEFF2"
+              />
+            </Box>
+          </Box>
+        </Box>
+      </Box>
+      {/* <Subscription /> */}
+      <Box className="bg-white text-black mt-40 pt-14 p-4 rounded-t-[60px] h-3/4">
+        <Personal />
+        <Other />
+      </Box>
     </Page>
   );
 };

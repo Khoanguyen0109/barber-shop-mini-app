@@ -10,7 +10,7 @@ import {
 import VoucherItem from "../../components/voucher-item";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../routes";
-import { userState, userTotalPointState } from "../../state";
+import { userState, userCurrentPointState } from "../../state";
 import useCustomSnackbar from "../../hook/useCustomSnackbar";
 import { TDiscount } from "../../types/discount";
 import supabase from "../../client/client";
@@ -31,7 +31,7 @@ function VoucherList({}: Props) {
   };
 
   const [userTotalPoint, setUserTotalPoint] =
-    useRecoilState(userTotalPointState);
+    useRecoilState(userCurrentPointState);
   const discounts = useRecoilValue(payableDiscountSelector);
 
   const onClickRedeem = (item) => {

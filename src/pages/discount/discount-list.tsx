@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Header, Modal, Page, Text } from "zmp-ui";
 import { CiDiscount1 } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
-import { userState, userTotalPointState } from "../../state";
+import { userState, userCurrentPointState } from "../../state";
 import { useRecoilState, useRecoilValue } from "recoil";
 
 import logo from "static/logo.png";
@@ -29,7 +29,7 @@ function DiscountList({}: Props) {
 
   const [userVouchers, setUserVouchers] = useRecoilState(userVouchersState);
   const [userTotalPoint, setUserTotalPoint] =
-    useRecoilState(userTotalPointState);
+    useRecoilState(userCurrentPointState);
 
   const onClickRedeem = (item) => {
     if (userTotalPoint < item.point) {

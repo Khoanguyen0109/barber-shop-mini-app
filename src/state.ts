@@ -9,17 +9,13 @@ import {
 import logo from "static/logo.png";
 import { Category } from "types/category";
 import { Product, Variant } from "types/product";
-import { Cart } from "types/cart";
 import { Notification } from "types/notification";
 import { calculateDistance } from "utils/location";
 import { Store } from "types/delivery";
-import { calcFinalPrice } from "utils/product";
 import { wait } from "utils/async";
 import categories from "../mock/categories.json";
 import { upsertUser } from "./api/add-user";
 import supabase from "./client/client";
-import { dateSelectedState } from "./state/cart-state";
-import { isToday } from "date-fns";
 
 export const authorizedState = selector({
   key: "authorized",
@@ -46,17 +42,44 @@ export const userState = selector({
   },
 });
 
-const totalPointSelector = selector({
-  key: "totalPointSelector",
+export const userTotalPointSelector = selector<number>({
+  key: "useTotalPointSelector",
+  get: ({ get }) => {
+    const user = get(userState);
+    return user.totalPoint;
+  },
+});
+
+export const userTotalOrderSelector = selector<number>({
+  key: "useTotalOrderSelector",
+  get: ({ get }) => {
+    const user = get(userState);
+    return user.totalOrder;
+  },
+});
+
+
+export const userTotalPointState = atom<number>({
+  key: "useTotalPointState",
+  default: userTotalPointSelector,
+});
+
+export const userTotalOrderState = atom<number>({
+  key: "userTotalOrderState",
+  default: userTotalOrderSelector,
+});
+
+const userCurrentPointSelector = selector({
+  key: "userCurrentPointSelector",
   get: ({ get }) => {
     const user = get(userState);
     return user.point;
   },
 });
 
-export const userTotalPointState = atom({
-  key: "userTotalPointState",
-  default: totalPointSelector,
+export const userCurrentPointState = atom({
+  key: "userCurrentPoint",
+  default: userCurrentPointSelector,
 });
 
 export const categoriesState = selector<Category[]>({

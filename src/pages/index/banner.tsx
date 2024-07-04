@@ -9,7 +9,16 @@ import { bannerState } from "../../state/setting-state";
 import { useRecoilValue } from "recoil";
 import { PRIMARY_COLOR } from "../../constants";
 import PrimaryText from "../../components/primaryText";
+import {
+  userState,
+  userTotalOrderState,
+  userTotalPointState,
+} from "../../state";
 export const Banner: FC = () => {
+  const user = useRecoilValue(userState);
+  const userTotalPoint = useRecoilValue(userTotalPointState);
+  const userTotalOrder = useRecoilValue(userTotalOrderState);
+
   const banners = useRecoilValue(bannerState);
 
   return (
@@ -47,18 +56,22 @@ export const Banner: FC = () => {
           <Box className="flex">
             <img src={Badge}></img>
             <Box className="ml-2">
-              <PrimaryText className="font-bold">Hạng vàng</PrimaryText>
-              <Text className="text-xs">Hạng vàng</Text>
+              <PrimaryText className="font-bold">
+                {user.memberClass}
+              </PrimaryText>
+              <Text className="text-xs">Thứ hạng</Text>
             </Box>
           </Box>
           <Box className="flex">
             <Box className="text-center border-r-[1px] border-solid border-neutral-300 pr-2  ">
-              <PrimaryText className="font-bold">26</PrimaryText>
+              <PrimaryText className="font-bold">
+                {userTotalOrder || 0}
+              </PrimaryText>
               <Text className="text-xs">Đơn hàng</Text>
             </Box>
             <Box className="text-center ml-2 ">
               <PrimaryText className="font-bold">
-                <DisplayPrice>{700000}</DisplayPrice>
+                <DisplayPrice>{user?.totalSpent || 0}</DisplayPrice>
               </PrimaryText>
               <Text className="text-xs">Chi tiêu</Text>
             </Box>
