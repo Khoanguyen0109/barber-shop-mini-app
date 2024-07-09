@@ -32,7 +32,6 @@ export const userState = selector({
   get: async ({ get }) => {
     get(authorizedState);
     const zaloUser = await getUserInfo({}).then((res) => res.userInfo);
-    console.log("zaloUser", zaloUser);
     try {
       const data = upsertUser(zaloUser);
       return data;

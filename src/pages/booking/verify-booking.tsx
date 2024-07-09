@@ -45,7 +45,6 @@ function VerifyBooking({}: Props) {
         .select(
           "*, storeService: store_services(*, store: stores(*), service: services(*))"
         );
-      console.log("data", data);
       setBookingList([...bookingList, ...data]);
       openSnackbar({
         text: "Đặt lịch thành công",

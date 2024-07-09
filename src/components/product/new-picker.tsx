@@ -175,18 +175,6 @@ export const NewProductPicker: FC<ProductPickerProps> = ({
                         value={options[key] as string[]}
                         values={variants[key]}
                         onChange={(selectedOption) => {
-                          console.log("options[key] ", options[key]);
-                          // if (key === "Món thêm") {
-                          //   console.log("first");
-                          //   setOptions((prevOptions) => ({
-                          //     ...prevOptions,
-                          //     [key]: includes(prevOptions[key], selectedOption)
-                          //       ? prevOptions[key].filter(
-                          //           (item) => item.id !== selectedOption.id
-                          //         )
-                          //       : [...(prevOptions[key] ?? []), selectedOption],
-                          //   }));
-                          // } else {
                           setOptions((prevOptions) => ({
                             ...prevOptions,
                             [key]: [selectedOption],
@@ -198,36 +186,6 @@ export const NewProductPicker: FC<ProductPickerProps> = ({
                   })}
               </Box>
 
-              {/* {product.variants &&
-               product.variants.map((variant) =>
-               <ProductVariant variant={variant}/>
-                 // variant.type === "single" ? (
-                 //   <SingleOptionPicker
-                 //     key={variant.key}
-                 //     variant={variant}
-                 //     value={options[variant.key] as string}
-                 //     onChange={(selectedOption) =>
-                 //       setOptions((prevOptions) => ({
-                 //         ...prevOptions,
-                 //         [variant.key]: selectedOption,
-                 //       }))
-                 //     }
-                 //   />
-                 // ) : (
-                 //   <MultipleOptionPicker
-                 //     key={variant.key}
-                 //     product={product}
-                 //     variant={variant}
-                 //     value={options[variant.key] as string[]}
-                 //     onChange={(selectedOption) =>
-                 //       setOptions((prevOptions) => ({
-                 //         ...prevOptions,
-                 //         [variant.key]: selectedOption,
-                 //       }))
-                 //     }
-                 //   />
-                 // )
-               )} */}
               <QuantityPicker value={quantity} onChange={setQuantity} />
               {selected ? (
                 <Button

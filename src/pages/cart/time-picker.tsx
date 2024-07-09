@@ -81,7 +81,6 @@ export const TimePicker: FC = () => {
           : `Chọn thời gian`
       }
       onChange={({ date, time }) => {
-        console.log("time", time);
         if (date) {
           setDate(+date.value);
         }

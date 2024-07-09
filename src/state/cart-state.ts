@@ -38,7 +38,6 @@ export const totalPriceState = selector({
   get: ({ get }) => {
     const cart = get(cartState);
     const discount = get(discountState);
-    console.log("discount", discount);
     const shippingFee = get(shippingFeeState);
     if (cart.length === 0) {
       return 0;

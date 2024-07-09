@@ -12,7 +12,6 @@ import { ROUTES } from "../../routes";
 import { selectServiceState } from "../../state/services-state";
 
 function StoreDetail() {
-  const location = useLocation();
   const navigate = useNavigate();
   const selectedStore = useRecoilValue(selectedStoreState);
   const [selectServiceBooking, setSelectServiceBooking] = useRecoilState(
@@ -60,7 +59,6 @@ function StoreDetail() {
       const storeService = filterServices.find(
         (item) => item.serviceId === autoSelectService.id
       );
-      console.log("storeService", storeService);
       onServiceItemClick({
         ...storeService.services,
         price: storeService.price,

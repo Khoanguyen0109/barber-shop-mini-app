@@ -20,7 +20,6 @@ type Props = {};
 function Booking({}: Props) {
   const navigate = useNavigate();
   const selectServiceBooking = useRecoilValue(selectServiceBookingState);
-  console.log("selectServiceBooking", selectServiceBooking);
   const [autoSelectService, setAutoSelectService] =
     useRecoilState(selectServiceState);
 

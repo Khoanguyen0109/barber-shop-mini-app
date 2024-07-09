@@ -10,7 +10,6 @@ function OrderDetailList({ detail }) {
   return (
     <Box className="px-2">
       {detail.map((item) => {
-        console.log("item", item);
         const selectedInventories = item.inventoryIds.split(",");
         const options = [
           ...item.product.inventories,
@@ -21,7 +20,6 @@ function OrderDetailList({ detail }) {
           }
           return acc;
         }, []);
-        console.log("options", options);
 
         return (
           <Box flex className=" bg-background rounded-lg p-3">

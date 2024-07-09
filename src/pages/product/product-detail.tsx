@@ -40,10 +40,8 @@ function ProductDetail({}: Props) {
 
   const [productSelected, setProductSelected] =
     useRecoilState(selectedProductState);
-  console.log("productSelected", productSelected);
   const paramsSearch = new URLSearchParams(location.search);
-  const ctvId = paramsSearch.get("id_ctv_shared");
-  const cart = useRecoilValue(cartState);
+
   const [visible, setVisible] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const shareCurrentPage = async () => {

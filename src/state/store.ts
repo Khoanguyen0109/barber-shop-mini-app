@@ -1,4 +1,4 @@
-import { atom, selector, selectorFamily } from "recoil";
+import { atom, selector } from "recoil";
 import supabase from "../client/client";
 import { TStore } from "../types/store";
 import { selectServiceState } from "./services-state";
@@ -8,7 +8,6 @@ export const storesSelector = selector<TStore[]>({
   get: async ({ get }) => {
     const serviceSelected = get(selectServiceState);
     if (serviceSelected) {
-      console.log("serviceSelected", serviceSelected);
       const { data: storeServiceData } = await supabase
         .from("store_services")
         .select("*, stores(*)")

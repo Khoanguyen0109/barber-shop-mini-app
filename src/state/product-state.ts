@@ -12,7 +12,6 @@ export const mapProduct = (item) => {
       ? Number(item.price) - (Number(item.price) * Number(item.discount)) / 100
       : Number(item.price),
     variants: groupBy([...item.inventories], "group"),
-    // variants: item.inventories,
     image: item.image.split(",").map((item) => ({ image: item })),
   };
 };

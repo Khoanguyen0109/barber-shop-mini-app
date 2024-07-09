@@ -42,14 +42,6 @@ export const Banner: FC = () => {
               />
             </SwiperSlide>
           ))}
-        {/* {banners.map((banner, i) => (
-          <SwiperSlide key={i} className="px-4">
-            <Box
-              className="w-full rounded-lg h-64 bg-cover bg-center bg-skeleton"
-              style={{ backgroundImage: `url(${banner.value})` }}
-            />
-          </SwiperSlide>
-        ))} */}
       </Swiper>
       <Box className="absolute w-full  z-20 -bottom-2 ">
         <Box className="rounded-xl p-4 mx-8 flex bg-white shadow-md  justify-between ">

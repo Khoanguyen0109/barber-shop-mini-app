@@ -14,12 +14,10 @@ type Props = {
 };
 
 function OrderItem({ item, onOpenRating }: Props) {
-  console.log("item", item);
   const navigate = useNavigate();
   const onClick = () => {
     navigate(ROUTES.ORDER_DETAIL(item.id));
   };
-  console.log("item", item);
   return (
     <Box
       className="rounded-lg bg-background m-3 cursor-pointer"

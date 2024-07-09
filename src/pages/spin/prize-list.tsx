@@ -9,7 +9,6 @@ import {
   backGroundPrizeSelector,
   userPrizeListState,
 } from "../../state/spin-state";
-import CustomButton from "../../components/button/button";
 import PrizeItem from "../../components/prize-item/prize-item";
 import { OA_ID } from "../../enviroment";
 type Props = {};

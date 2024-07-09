@@ -35,30 +35,7 @@ function Order({}: Props) {
   useEffect(() => {
     forceUpdate();
   }, []);
-  // const iconStatus = (status) => {
-  //   switch (status) {
-  //     case EOrderStatus.WAITING:
-  //       return {
-  //         icon: "zi-clock-1",
-  //         color: "text-grey",
-  //       };
-  //     case EOrderStatus.DELIVERING:
-  //       return { icon: "zi-leave", color: "text-yellow" };
-  //     case EOrderStatus.DELIVERED:
-  //       return {
-  //         icon: "zi-check-circle",
-  //         color: " text-green",
-  //       };
 
-  //     case EOrderStatus.CANCEL:
-  //       return {
-  //         icon: "zi-close",
-  //         color: "text-red",
-  //       };
-  //     default:
-  //       break;
-  //   }
-  // };
   return (
     <Page className="bg-background">
       <Header title="Lịch sử đặt hàng" showBackIcon={true} />

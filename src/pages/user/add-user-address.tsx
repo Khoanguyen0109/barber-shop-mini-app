@@ -58,8 +58,6 @@ function AddUserAddress({}: Props) {
     mode: "onSubmit",
     defaultValues: addressSelected || { type: "home" },
   });
-  console.log("getValues()", getValues());
-  console.log("errors", errors);
 
   const navigateBack = () => {
     navigate({
@@ -75,7 +73,6 @@ function AddUserAddress({}: Props) {
       const { error } = await supabase
         .from("user_addresses")
         .insert({ userId: user.id, ...value });
-      console.log("error", error);
       refresh();
       setProvinceId(null);
       setWardId(null);

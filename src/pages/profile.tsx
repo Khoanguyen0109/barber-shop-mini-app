@@ -25,27 +25,8 @@ import Badge from "assets/badge.svg";
 import PrimaryText from "../components/primaryText";
 import bg from "assets/profile-bg.png";
 import { nextPointSelector } from "../state/setting-state";
-const Subscription: FC = () => {
-  const onClick = useToBeImplemented();
-  return (
-    <Box className="m-4" onClick={onClick}>
-      <Box
-        className="bg-green text-white rounded-xl p-4 space-y-2"
-        style={{
-          backgroundImage: `url(${subscriptionDecor})`,
-          backgroundPosition: "right 8px center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <Text.Title className="font-bold">Đăng ký thành viên</Text.Title>
-        <Text size="xxSmall">Tích điểm đổi thưởng, mở rộng tiện ích</Text>
-      </Box>
-    </Box>
-  );
-};
 
 const Personal: FC = () => {
-  const onClick = useToBeImplemented();
   const navigate = useNavigate();
   const navigateToOrder = () => {
     navigate(ROUTES.ORDER);
@@ -202,7 +183,6 @@ const Other: FC = () => {
 const ProfilePage: FC = () => {
   const user = useRecoilValue(userState);
   const userTotalPoint = useRecoilValue(userTotalPointState);
-  const userTotalOrder = useRecoilValue(userTotalOrderState);
   const nextPoint = useRecoilValue(nextPointSelector);
   return (
     <Page className="relative bg-orange-500 text-white flex flex-col">

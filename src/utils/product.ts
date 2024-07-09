@@ -117,7 +117,6 @@ const pay = (amount: number, callback: (data: any) => void) => {
     item: [],
     amount: amount,
     success: (data) => {
-      console.log("data", data);
       callback(data);
     },
     fail: (err) => {
