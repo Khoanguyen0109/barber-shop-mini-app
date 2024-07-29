@@ -1,5 +1,5 @@
 import { atom, selector, selectorFamily } from "recoil";
-import { Product, TProduct } from "types/product";
+import { TProduct } from "types/product";
 import supabase from "../client/client";
 import { groupBy } from "lodash";
 import { Category } from "../types/category";
@@ -99,9 +99,11 @@ export const productsByCategoryState = selectorFamily<TProduct[], string>({
   get:
     (categoryId) =>
     ({ get }) => {
+      console.log("categoryId", categoryId);
       const allProducts = get(productsState);
+      console.log("allProducts", allProducts);
       return allProducts.filter(
-        (product) => product.categoryId.toString() === categoryId
+        (product) => product.categoryId.toString() === categoryId.toString()
       );
     },
 });

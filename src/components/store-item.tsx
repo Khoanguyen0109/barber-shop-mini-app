@@ -28,7 +28,7 @@ function StoreItem({ store, clickAble = false }: Props) {
   };
   return (
     <Box
-      className="p-2 rounded-lg flex overflow-hidden shadow-lg items-center"
+      className="p-2 rounded-lg flex overflow-hidden shadow-lg items-center mb-3"
       onClick={onItemClick}
     >
       <img className="w-20 h-20 rounded-md mr-2" src={store.image} />

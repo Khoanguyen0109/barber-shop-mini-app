@@ -6,7 +6,7 @@ import { storesSelector } from "../../state/store";
 import StoreItem from "../../components/store-item";
 import debounce from "lodash/debounce";
 import { TStore } from "../../types/store";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { selectServiceState } from "../../state/services-state";
 import { ROUTES } from "../../routes";
 
@@ -59,7 +59,7 @@ function Stores({}: Props) {
 
   return (
     <Page className="flex flex-col bg-white ">
-      <Header title="Tìm kiếm" showBackIcon onBackClick={onBackClick} />
+      <Header title="Chọn chi nhánh" showBackIcon onBackClick={onBackClick} />
       <Box p={4} className="bg-white flex sticky ">
         <Input.Search
           value={inputValue}

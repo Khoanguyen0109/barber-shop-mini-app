@@ -1,11 +1,9 @@
 import { ProductItem } from "components/product/item";
 import React, { FC, Suspense } from "react";
 import { useRecoilValue } from "recoil";
-import {
-  categoriesState,
-} from "state";
+
 import { Box, Header, Page, Tabs, Text } from "zmp-ui";
-import { productsByCategoryState, selectedCategoryIdState } from "../state/product-state";
+import { categoriesState, productsByCategoryState, selectedCategoryIdState } from "../state/product-state";
 
 const CategoryPicker: FC = () => {
   const categories = useRecoilValue(categoriesState);

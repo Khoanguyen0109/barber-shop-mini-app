@@ -59,7 +59,7 @@ export const Layout: FC = () => {
           <Route path={ROUTES.CART} element={<CartPage />}></Route>
           <Route path={ROUTES.PROFILE} element={<ProfilePage />}></Route>
           <Route path={ROUTES.USER_ADDRESS} element={<UserAddress />}></Route>
-          <Route path={ROUTES.ALL_PRODUCT} element={<AllProduct />}></Route>
+          <Route path={ROUTES.ALL_PRODUCT} element={<CategoryPage />}></Route>
           <Route path={ROUTES.ALL_PACKAGE} element={<AllPackage />}></Route>
 
           <Route

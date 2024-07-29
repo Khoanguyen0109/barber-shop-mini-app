@@ -17,16 +17,32 @@ export const Welcome: FC = () => {
       title={
         (
           <Box flex alignItems="center" className="space-x-2">
-            <img className="w-8 h-8 rounded-lg border-inset" src={avatar} />
-            <Box>
-              <Text.Title size="small">{appConfig.app.title}</Text.Title>
-              {user.state === "hasValue" ? (
-                <Text size="xxSmall" className="text-gray">
-                  Welcome, {user.contents.name}!
-                </Text>
-              ) : (
-                <Text>...</Text>
-              )}
+            <Box flex alignItems="center" className="space-x-3">
+              <img
+                className="w-8 h-8 rounded-full border-inset"
+                src={
+                  user.contents?.avatar ||
+                  getConfig((c) => c.template.headerLogo) ||
+                  logo
+                }
+                alt={"Avatar"}
+              />
+              <Box>
+                {user.state === "hasValue" ? (
+                  <>
+                    <Box>
+                      <Text size="xxsmall" className="text-slate-500">
+                        Xin chào,
+                      </Text>
+                      <Text size="small" className="text-slate-900 font-bold">
+                        {user.contents.name}
+                      </Text>
+                    </Box>
+                  </>
+                ) : (
+                  <Text>...</Text>
+                )}
+              </Box>
             </Box>
           </Box>
         ) as unknown as string

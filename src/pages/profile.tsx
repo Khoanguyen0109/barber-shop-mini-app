@@ -11,14 +11,13 @@ import {
   Select,
   Text,
 } from "zmp-ui";
-import subscriptionDecor from "static/subscription-decor.svg";
 import { ListRenderer } from "components/list-renderer";
 import { useToBeImplemented } from "hooks";
 import { ROUTES } from "../routes";
 import { useNavigate } from "react-router-dom";
 import useCustomSnackbar from "../hook/useCustomSnackbar";
 import { useRecoilValue } from "recoil";
-import { userState, userTotalOrderState, userTotalPointState } from "../state";
+import { userState, userTotalPointState } from "../state";
 import supabase from "../client/client";
 const { Option } = Select;
 import Badge from "assets/badge.svg";

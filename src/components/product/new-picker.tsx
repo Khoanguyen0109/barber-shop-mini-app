@@ -166,9 +166,9 @@ export const NewProductPicker: FC<ProductPickerProps> = ({
                   </Box>
                 </Box>
               </Box>
-              <Box className="space-y-5 overflow-y-auto h-[420px]">
-                {!isEmpty(variants) &&
-                  Object.keys(variants).map((key) => {
+              {!isEmpty(variants) && (
+                <Box className="space-y-5 overflow-y-auto max-h-[420px]">
+                  {Object.keys(variants).map((key) => {
                     return (
                       <ProductVariant
                         variant={key}
@@ -184,8 +184,8 @@ export const NewProductPicker: FC<ProductPickerProps> = ({
                       />
                     );
                   })}
-              </Box>
-
+                </Box>
+              )}
               <QuantityPicker value={quantity} onChange={setQuantity} />
               {selected ? (
                 <Button

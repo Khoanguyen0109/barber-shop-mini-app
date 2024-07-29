@@ -4,7 +4,6 @@ import { calcFinalPrice } from "../utils/product";
 import { calDiscount } from "../utils/price";
 import { settingState } from "./setting-state";
 import { addressesState, userState } from "../state";
-import supabase from "../client/client";
 
 export const cartState = atom<Cart>({
   key: "cart",

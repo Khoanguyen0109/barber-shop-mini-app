@@ -13,7 +13,6 @@ function Filter({}: Props) {
 
   const [selectedServices, setSelectedServices] =
     useRecoilState(selectedServiceState);
-
   const onItemClick = (item, isActive) => {
     if (isActive) {
       setSelectedServices(selectedServices.filter((ser) => ser.id !== item.id));

@@ -17,14 +17,14 @@ const Modules: FC = () => {
     },
     {
       icon: buyPackage,
-      path: ROUTES.ALL_PACKAGE,
-      name: "Mua gói",
+      path: ROUTES.STORE_LIST,
+      name: "Đặt lịch",
     },
-    {
-      icon: spin,
-      path: ROUTES.SPIN,
-      name: "Vòng quay",
-    },
+    // {
+    //   icon: spin,
+    //   path: ROUTES.SPIN,
+    //   name: "Vòng quay",
+    // },
     {
       icon: chat,
       path: ROUTES.CHAT_OA,

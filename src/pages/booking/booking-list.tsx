@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRecoilValue } from "recoil";
 import { Box, Header, Page, Tabs } from "zmp-ui";
 import {
+  cancelBookingSelector,
   doneBookingSelector,
   notDoneBookingSelector,
 } from "../../state/booking-state";
@@ -12,26 +13,38 @@ type Props = {};
 function BookingList({}: Props) {
   const doneBooking = useRecoilValue(doneBookingSelector);
   const notDoneBooking = useRecoilValue(notDoneBookingSelector);
+  const cancelBooking = useRecoilValue(cancelBookingSelector);
 
+  const [activeKey, setActiveKey] = useState("notBooking");
   return (
     <Page className="bg-white">
       <Header title="Danh sách hoạt động" showBackIcon />
-      <Box className="w-full overflow-hidden">
+      <Box className="w-screen overflow-hidden">
         <Tabs
-          id="contact-list"
-          className="w-full [&_zaui-tabs-tabbar]: justify-center overflow-hidden"
+          scrollable
+          className="w-full  overflow-y-hidden h-[calc(100vh-100px)]"
+          activeKey={activeKey}
+          onTabClick={(key) => setActiveKey(key)}
         >
-          <Tabs.Tab key="tab2" label="Sắp diễn ra">
-            <Box className="mt-4 px-4 overflow-y-auto">
+          <Tabs.Tab key="notBooking" label="Sắp diễn ra">
+            <Box className="mt-4 px-4 overflow-y-auto h-[calc(100vh-150px)]">
               {notDoneBooking.map((item) => (
                 <BookingItem item={item} />
               ))}
             </Box>
           </Tabs.Tab>
-          <Tabs.Tab key="tab3" label="Đã xong">
-            <Box className="mt-4 px-4 overflow-y-auto">
+          <Tabs.Tab key="doneBooking" label="Đã xong">
+            <Box className="mt-4 px-4 overflow-y-auto h-[calc(100vh-150px)]">
               {doneBooking.map((item) => (
-                <BookingItem item={item} />
+                <BookingItem key={item.id} item={item} />
+              ))}
+            </Box>
+          </Tabs.Tab>
+
+          <Tabs.Tab key="cancelBooking" label="Đã huỷ">
+            <Box className="mt-4 px-4 overflow-y-auto h-[calc(100vh-150px)]">
+              {cancelBooking.map((item) => (
+                <BookingItem key={item.id} item={item} />
               ))}
             </Box>
           </Tabs.Tab>

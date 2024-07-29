@@ -78,3 +78,14 @@ export const notDoneBookingSelector = selector<TBooking[]>({
     );
   },
 });
+
+export const cancelBookingSelector = selector<TBooking[]>({
+  key: "cancelBookingSelector",
+  get: async ({ get }) => {
+    const bookingList = get(bookingListState);
+    return bookingList.filter(
+      (item) => item.status === EBookingStatus.CANCEL
+    );
+  },
+});
+

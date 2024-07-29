@@ -1,6 +1,6 @@
 import { selector } from "recoil";
 import supabase from "../client/client";
-import { userState, userTotalPointState } from "../state";
+import { userTotalPointState } from "../state";
 
 export const settingState = selector({
   key: "settings",

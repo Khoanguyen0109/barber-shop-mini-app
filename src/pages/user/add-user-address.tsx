@@ -52,7 +52,6 @@ function AddUserAddress({}: Props) {
     register,
     handleSubmit,
     setValue,
-    getValues,
     formState: { errors },
   } = useForm({
     mode: "onSubmit",

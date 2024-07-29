@@ -20,7 +20,7 @@ function OrderItem({ item, onOpenRating }: Props) {
   };
   return (
     <Box
-      className="rounded-lg bg-background m-3 cursor-pointer"
+      className="rounded-lg bg-background m-3 cursor-pointer shadow-lg"
       onClick={onClick}
     >
       <Box className="flex justify-between py-3 pr-3 items-center">

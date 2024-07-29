@@ -42,6 +42,7 @@ export enum EProductType {
 export enum EBookingStatus {
   DONE = "done",
   NOT_DONE = "not_done",
+  CANCEL = "cancel",
 }
 
 export const PRIMARY_COLOR = getConfig((c) => c.template.primaryColor);

@@ -26,7 +26,7 @@ const tabs: Record<string, MenuItem> = {
     activeIcon: <CartIcon active />,
   },
   "/booking-list": {
-    label: "Hoạt động",
+    label: "Lịch hẹn",
     icon: <RiCalendarScheduleLine />,
     activeIcon: <RiCalendarScheduleFill color={PRIMARY_COLOR} />,
   },

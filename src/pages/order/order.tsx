@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { Header, Page, Tabs } from "zmp-ui";
@@ -12,6 +12,7 @@ type Props = {};
 function Order({}: Props) {
   const navigate = useNavigate();
   const orderUpdate = useSetRecoilState(forceOrderUpdate);
+  const [activeKey, setActiveKey] = useState("waiting");
 
   const orders = useRecoilValue(orderState);
   const orderWaiting = orders.filter(
@@ -37,9 +38,14 @@ function Order({}: Props) {
   }, []);
 
   return (
-    <Page className="bg-background">
+    <Page className="bg-background w-full">
       <Header title="Lịch sử đặt hàng" showBackIcon={true} />
-      <Tabs className="w-full" id="contact-list">
+      <Tabs
+        scrollable
+        className="w-full  overflow-y-hidden h-[calc(100vh-100px)]"
+        activeKey={activeKey}
+        onTabClick={(key) => setActiveKey(key)}
+      >
         <Tabs.Tab key="waiting" label="Chờ xác nhận">
           <OrderList orders={orderWaiting} />
         </Tabs.Tab>
