@@ -48,10 +48,10 @@ export const Banner: FC = () => {
           <Box className="flex">
             <img src={Badge}></img>
             <Box className="ml-2">
-              <PrimaryText className="font-bold">
-                {user.memberClass}
+              <PrimaryText className=" text-[10px] font-bold">
+                Thành viên {user.memberClass}
               </PrimaryText>
-              <Text className="text-xs">Thứ hạng</Text>
+              <Text className="text-xs">{userTotalPoint}</Text>
             </Box>
           </Box>
           <Box className="flex">

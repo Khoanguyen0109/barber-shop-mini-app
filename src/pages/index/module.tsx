@@ -37,7 +37,7 @@ const Modules: FC = () => {
   };
 
   return (
-    <Box className="bg-white grid grid-cols-4 gap-4 p-4 mt-4">
+    <Box className="bg-white grid grid-cols-3 gap-4 p-4 mt-4">
       {modules.map((item, i) => (
         <div
           key={i}

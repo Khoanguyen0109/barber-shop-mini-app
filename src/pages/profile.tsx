@@ -214,24 +214,22 @@ const ProfilePage: FC = () => {
         <Box className="flex mb-6">
           <img src={Badge}></img>
           <Box className="ml-2">
-            <Text className="text-xs">Thứ hạng của bạn</Text>
             <PrimaryText className="font-bold">
-              {user?.memberClass || "Chưa có hạng"}
+              Thành viên {user?.memberClass || "Chưa có hạng"}
             </PrimaryText>
+            <PrimaryText className="text-xs font-bold ">
+              {userTotalPoint || 0}
+            </PrimaryText>{" "}
           </Box>
         </Box>
         <Box>
           <Text className="text-xs mb-2">Để nâng lên thứ hạng tiếp theo</Text>
           <Box className="w-full flex text-center">
             <Box className="flex-1">
-              <PrimaryText className="text-sm font-bold ">
-                {userTotalPoint || 0}
-              </PrimaryText>
-              <Text className="text-xs mb-1">Điểm</Text>
+              <Text className="text-xs mb-1">Điểm tích luỹ</Text>
               <Text className="text-xs">
                 {userTotalPoint}/{nextPoint}
               </Text>
-
               <Progress
                 strokeColor="#FF6602"
                 completed={userTotalPoint}

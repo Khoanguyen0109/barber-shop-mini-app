@@ -11,9 +11,9 @@ export const provinceState = selector({
     return res.data || [];
   },
 });
-export const selectedProvinceId = atom({
+export const selectedProvinceId = atom<string | null>({
   key: "selectedProvinceId",
-  default: "Thành phố Hồ Chí Minh",
+  default: null,
 });
 
 export const districtState = selector({
@@ -40,8 +40,10 @@ export const wardState = selector({
   get: async ({ get }) => {
     const districtId = get(selectedDistrictId);
     const districts = get(districtState);
+    console.log("districts", districts);
     const code = districts.find((item) => item.name === districtId)?.code;
-    if (!districtId) {
+    console.log("districtId", districtId);
+    if (!districtId && districts && !code) {
       return [];
     }
     const res = await axios(`${PROVINCE_API}/d/${code}?depth=2`);

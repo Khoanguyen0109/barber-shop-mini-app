@@ -148,3 +148,10 @@ body {
 .zaui-tabs-tabbar {
   justify-content: center;
 }
+
+.zaui-select-close-icon,
+.zaui-select
+  .zaui-btn.zaui-btn-icon-only.zaui-btn-medium.zaui-select-close-icon {
+  left: 10px;
+  top: 10px;
+}

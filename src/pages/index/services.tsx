@@ -26,7 +26,10 @@ function ServicesList({}: Props) {
     <Box className="p-4 h-80 ">
       <Box className={"flex flex-row items-center justify-between mt-4 mb-4"}>
         <Text className="font-bold text-lg">Dịch vụ nổi bật</Text>
-        <PrimaryText className={"mr-3 cursor-pointer color"} onClick={onClick}>
+        <PrimaryText
+          className={"mr-3 cursor-pointer color"}
+          onClick={() => navigate(ROUTES.STORE_LIST)}
+        >
           Xem Tất cả
         </PrimaryText>
       </Box>

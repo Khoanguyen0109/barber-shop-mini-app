@@ -32,6 +32,16 @@ const { Option } = Select;
 
 type Props = {};
 
+const defaultValue = {
+  name: "",
+  phone: "",
+  address: "",
+  type: "home",
+  province: "",
+  district: "",
+  ward: "",
+};
+
 function AddUserAddress({}: Props) {
   const navigate = useNavigate();
   useRecoilValue(provinceState);
@@ -52,11 +62,32 @@ function AddUserAddress({}: Props) {
     register,
     handleSubmit,
     setValue,
+    watch,
+    getValues,
+    reset,
     formState: { errors },
   } = useForm({
     mode: "onSubmit",
-    defaultValues: addressSelected || { type: "home" },
+    defaultValues: addressSelected || defaultValue,
   });
+  const name = watch("name");
+  const phone = watch("phone");
+  const address = watch("address");
+  const province = watch("province");
+  const district = watch("district");
+  const ward = watch("ward");
+  const type = watch("type");
+
+  useEffect(() => {
+    if (addressSelected) {
+      setProvinceId(addressSelected.province);
+      setDistrictId(addressSelected.district);
+      setWardId(addressSelected.ward);
+      setTimeout(() => {
+        reset(addressSelected);
+      }, 500);
+    }
+  }, [addressSelected]);
 
   const navigateBack = () => {
     navigate({
@@ -69,13 +100,22 @@ function AddUserAddress({}: Props) {
   const onSubmit = async (value) => {
     try {
       setLoading(true);
-      const { error } = await supabase
-        .from("user_addresses")
-        .insert({ userId: user.id, ...value });
+
+      if (addressSelected) {
+        await supabase
+          .from("user_addresses")
+          .update(value)
+          .eq("id", addressSelected.id);
+      } else {
+        const { error } = await supabase
+          .from("user_addresses")
+          .insert({ userId: user.id, ...value });
+      }
       refresh();
       setProvinceId(null);
       setWardId(null);
       setDistrictId(null);
+
       navigateBack();
     } catch (error) {}
   };
@@ -110,9 +150,19 @@ function AddUserAddress({}: Props) {
     }
     return "";
   };
+  const label = addressSelected ? "Cập nhật địa chỉ" : " Thêm địa chỉ";
+
   return (
     <Page>
-      <Header title="Thêm địa chỉ" showBackIcon={true} />
+      <Header
+        title={label}
+        showBackIcon={true}
+        onBackClick={() => {
+          navigate(-1);
+          setAddressSelected(null);
+          reset(defaultValue);
+        }}
+      />
 
       <form className="p-4 flex flex-col" onSubmit={handleSubmit(onSubmit)}>
         <Box>
@@ -120,6 +170,7 @@ function AddUserAddress({}: Props) {
             placeholder={`Nhập ${getFieldName("phone")} `}
             label={getFieldName("phone")}
             type="number"
+            value={phone}
             errorText={getErrorMessage("phone")}
             {...register("phone", { required: true })}
             status={errors?.phone ? "error" : "default"}
@@ -129,6 +180,7 @@ function AddUserAddress({}: Props) {
           <AppInput
             placeholder={`Nhập ${getFieldName("name")} `}
             label={getFieldName("name")}
+            value={name}
             errorText={getErrorMessage("name")}
             {...register("name", { required: true })}
             status={errors?.name ? "error" : "default"}
@@ -139,13 +191,14 @@ function AddUserAddress({}: Props) {
             label={getFieldName("address")}
             placeholder={`Nhập ${getFieldName("address")} `}
             errorText={getErrorMessage("address")}
+            value={address}
             {...register("address", { required: true })}
             status={errors?.address ? "error" : "default"}
           />
         </Box>
         <Box mt={4}>
           <Select
-            value={addressSelected?.type}
+            value={type}
             label={getFieldName("type")}
             defaultValue="home"
             {...register("type", { required: true })}
@@ -164,15 +217,18 @@ function AddUserAddress({}: Props) {
         </Box>
         <Box mt={4}>
           <Select
-            value={addressSelected?.province}
+            value={province}
             label={getFieldName("province")}
             placeholder={`Nhập ${getFieldName("province")} `}
             defaultValue=""
-            {...register("province", { required: true })}
+            {...register("province", { required: "Tỉnh không hợp lệ" })}
             onChange={(value) => {
               setProvinceId(value);
-
+              setDistrictId(null);
+              setWardId(null);
               setValue("province", value, { shouldValidate: true });
+              setValue("district", "", { shouldValidate: true });
+              setValue("ward", "", { shouldValidate: true });
             }}
             closeOnSelect={true}
           >
@@ -184,7 +240,7 @@ function AddUserAddress({}: Props) {
             )}
             <Option value="" title="" disabled />
             {provinces.map((item) => (
-              <Option value={item.name} title={item.name} />
+              <Option key={item.name} value={item.name} title={item.name} />
             ))}
           </Select>
           <ErrorText
@@ -194,20 +250,22 @@ function AddUserAddress({}: Props) {
         </Box>
         <Box mt={4}>
           <Select
-            value={addressSelected?.district}
+            {...register("district", { required: "Quận/Huyện không hợp lệ" })}
+            value={district}
             label={getFieldName("district")}
             placeholder={`Nhập ${getFieldName("district")} `}
             defaultValue=""
             closeOnSelect={true}
-            {...register("district", { required: true })}
             onChange={(value) => {
               setDistrictId(value);
+              setWardId(null);
               setValue("district", value, { shouldValidate: true });
+              setValue("ward", "", { shouldValidate: true });
             }}
           >
             <Option value="" title="" disabled />
             {districts.map((item) => (
-              <Option value={item.name} title={item.name} />
+              <Option key={item.name} value={item.name} title={item.name} />
             ))}
           </Select>
           <ErrorText
@@ -217,12 +275,11 @@ function AddUserAddress({}: Props) {
         </Box>
         <Box mt={4}>
           <Select
-            value={addressSelected?.ward}
+            {...register("ward", { required: "Phường/Xã không hợp lệ" })}
+            value={ward}
             label={getFieldName("ward")}
             placeholder={`Nhập ${getFieldName("ward")} `}
-            defaultValue=""
             closeOnSelect={true}
-            {...register("ward", { required: true })}
             onChange={(value) => {
               setWardId(value);
               setValue("ward", value, { shouldValidate: true });
@@ -230,7 +287,7 @@ function AddUserAddress({}: Props) {
           >
             <Option value="" title="" disabled />
             {wards.map((item) => (
-              <Option value={item.name} title={item.name} />
+              <Option key={item.name} value={item.name} title={item.name} />
             ))}
           </Select>
           <ErrorText
@@ -248,7 +305,7 @@ function AddUserAddress({}: Props) {
           htmlType="submit"
           suffixIcon={<Icon icon="zi-add-user" />}
         >
-          {addressSelected ? "Cập nhật địa chỉ" : " Thêm địa chỉ"}
+          {label}
         </Button>
       </form>
     </Page>
