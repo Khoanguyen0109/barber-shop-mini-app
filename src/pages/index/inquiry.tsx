@@ -13,12 +13,12 @@ export const Inquiry: FC = () => {
         onFocus={() => navigate(ROUTES.STORE_LIST)}
         placeholder="Tìm kiếm chi nhánh, dịch vụ"
       />
-      <Box
+      {/* <Box
         className="p-2 ml-2 w-12 h-12 text-lg flex items-center justify-center bg-[#FF6602] text-white rounded-lg"
         onClick={() => navigate(ROUTES.FILTER_SERVICES)}
       >
         <VscSettings size={28} />
-      </Box>
+      </Box> */}
     </Box>
   );
 };

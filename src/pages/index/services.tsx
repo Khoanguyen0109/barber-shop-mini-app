@@ -30,7 +30,7 @@ function ServicesList({}: Props) {
           className={"mr-3 cursor-pointer color"}
           onClick={() => navigate(ROUTES.STORE_LIST)}
         >
-          Xem Tất cả
+          Xem Chi nhánh
         </PrimaryText>
       </Box>
       <Swiper

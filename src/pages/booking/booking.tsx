@@ -44,7 +44,7 @@ function Booking({}: Props) {
   return (
     <Page className="bg-white">
       <Header
-        title={selectServiceBooking.name}
+        title={"Thông tin dịch vụ"}
         showBackIcon
         onBackClick={onClickBack}
       />
@@ -59,13 +59,13 @@ function Booking({}: Props) {
         <PrimaryText className="text-md mt-1 font-semibold">
           <DisplayPrice>{selectServiceBooking.price}</DisplayPrice>{" "}
         </PrimaryText>
-        <Text className="text-lg font-bold mt-8">Mô tả dịch vụ</Text>
-        <Text className="mt-2">{selectServiceBooking.desc}</Text>
+        <Text className="text-lg font-bold mt-8">Chi nhánh</Text>
+        {/* <Text className="mt-2">{selectServiceBooking.desc}</Text> */}
         <Box className="mt-4">
           <StoreItem store={selectedStore} clickAble={false} />
         </Box>
-
-        <Box className="my-8">
+        <Text className="text-lg font-bold mt-8">Chọn lịch hẹn</Text>
+        <Box className="mt-4 mb-8">
           <TimePicker></TimePicker>
         </Box>
         <Button

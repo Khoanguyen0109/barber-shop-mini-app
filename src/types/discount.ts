@@ -10,4 +10,6 @@ export type TDiscount = {
   desc: string;
   point: number;
   title: string;
+  minPrice: number;
+  maxPrice: number;
 };

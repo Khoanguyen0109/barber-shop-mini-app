@@ -107,10 +107,6 @@ export const CartPreview: FC = () => {
         return acc;
       }, []);
       await Promise.all([supabase.from("order_details").insert(details)]);
-      setAddressSelected(null);
-      setDiscount(null);
-      setNote("");
-      resetCart();
       navigate(ROUTES.PAYMENT_SUCCESS);
     } catch (error) {
       openSnackbar({

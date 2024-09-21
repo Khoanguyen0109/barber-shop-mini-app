@@ -15,6 +15,7 @@ export const upsertUser = async (zaloUser) => {
         idByApp: zaloUser.id,
         idByOA: zaloUser.idByOA,
         name: zaloUser.name,
+        avatar: zaloUser.avatar
       })
       .select();
     return { ...newUser[0], avatar };

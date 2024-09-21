@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import { Box, Button, Page, Text } from "zmp-ui";
 import { Inquiry } from "./inquiry";
 import { Welcome } from "./welcome";
@@ -12,17 +12,32 @@ import NewProductList from "./new-product-list";
 import ServicesList from "./services";
 import VoucherList from "./voucher-list";
 import logo from "static/logo.png";
-import { followOA } from "zmp-sdk";
+import { followOA, getUserInfo } from "zmp-sdk";
 import { OA_ID } from "../../enviroment";
 import { useRecoilValue } from "recoil";
 import { userState } from "../../state";
+import supabase from "../../client/client";
 
 const HomePage: React.FunctionComponent = () => {
   const user = useRecoilValue(userState);
+  const [followed, setFollowed] = useState(user.followed )
+
+  const updateFollowed = async () => {
+    const zaloUser = await getUserInfo().then((res) => res.userInfo);
+    const { error } = await supabase
+      .from("users")
+      .update({ followed: true, idUserToNotification: zaloUser.idByOA })
+      .eq("id", user.id);
+  };
+
   const follow = async () => {
     try {
       await followOA({
         id: OA_ID,
+        success: () => {
+          updateFollowed();
+          setFollowed(true)
+        },
       });
     } catch (error) {
       // xử lý khi gọi api thất bại
@@ -37,7 +52,7 @@ const HomePage: React.FunctionComponent = () => {
         <Banner />
         <Modules />
 
-        {!user.followed && (
+        {!followed && (
           <div className="py-2 mx-4 px-4 mt-2 border-[1px] border-orange-500 border-solid rounded-lg bg-[#ffeadc] ">
             <Text className="text-xs mb-3 font-semibold">
               Quan tâm OA để nhận thông tin về ưu đãi

@@ -1,9 +1,9 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useEffect, useMemo } from "react";
 import { Button, Header, Icon, Page, Text } from "zmp-ui";
 
-import { followOA, getUserInfo } from "zmp-sdk";
+import { followOA, getUserInfo, Payment } from "zmp-sdk";
 import { OA_ID } from "enviroment";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Success from "assets/success.png";
 import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import paymentSuccessIcon from "assets/payment-success-icon.svg";
@@ -16,7 +16,9 @@ import {
   totalPriceState,
 } from "../../state/cart-state";
 import { ROUTES } from "../../routes";
+import { isUndefined } from "lodash";
 const PaymentSuccess: FC = () => {
+  const { state } = useLocation();
   const navigate = useNavigate();
   const user = useRecoilValue(userState);
   const [note, setNote] = useRecoilState(orderNoteState);
@@ -34,7 +36,7 @@ const PaymentSuccess: FC = () => {
     const zaloUser = await getUserInfo().then((res) => res.userInfo);
     const { error } = await supabase
       .from("users")
-      .update({ followed: true, idByOA: zaloUser.idByOA })
+      .update({ followed: true, idUserToNotification: zaloUser.idByOA })
       .eq("id", user.id);
   };
 
@@ -53,6 +55,38 @@ const PaymentSuccess: FC = () => {
     }
     return backHome();
   };
+
+  useEffect(() => {
+    let data = state;
+    if (data) {
+      if ("path" in data) {
+        data = data.path;
+      } else if ("data" in data) {
+        data = data.data;
+      }
+    } else {
+      data = new URL(window.location.href).searchParams.toString();
+    }
+    // gọi api checkTransaction để lấy thông tin giao dịch
+    Payment.checkTransaction({
+      data,
+      success: (rs) => {
+        // Kết quả giao dịch khi gọi api thành công
+        // const { id, resultCode, msg, transTime, createdAt } = rs;
+        console.log("rs", rs);
+        // // if(rs =)
+        console.log("", rs.resultCode);
+        if (isUndefined(rs?.resultCode) || rs.resultCode === -1) {
+          return navigate(ROUTES.CART);
+        }
+      },
+      fail: (err) => {
+        // Kết quả giao dịch khi gọi api thất bại
+        console.log(err);
+      },
+    });
+  }, []);
+
 
   return (
     <Page className="flex flex-col  bg-orange-500 text-white">

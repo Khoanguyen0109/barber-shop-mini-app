@@ -144,8 +144,8 @@ function AddUserAddress({}: Props) {
   const getErrorMessage = (field: string) => {
     if (errors[field]) {
       const name = getFieldName(field);
-      if (errors[field]?.type === "required")
-        return `${name} không được để trống`;
+      // if (errors[field]?.type === "required")
+      //   return `${name} không được để trống`;
       return `${name} không hợp lệ`;
     }
     return "";

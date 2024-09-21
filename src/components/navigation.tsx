@@ -13,6 +13,10 @@ import { RiCalendarScheduleLine } from "react-icons/ri";
 import { RiCalendarScheduleFill } from "react-icons/ri";
 import { MdOutlineAccountCircle } from "react-icons/md";
 import { MdAccountCircle } from "react-icons/md";
+import useCustomSnackbar from "../hook/useCustomSnackbar";
+import { useRecoilValue } from "recoil";
+import { cartState } from "../state/cart-state";
+import { ROUTES } from "../routes";
 
 const tabs: Record<string, MenuItem> = {
   "/": {
@@ -52,6 +56,8 @@ export const Navigation: FC = () => {
   const keyboardVisible = useVirtualKeyboardVisible();
   const navigate = useNavigate();
   const location = useLocation();
+  const { openSnackbar } = useCustomSnackbar();
+  const cart = useRecoilValue(cartState);
 
   const noBottomNav = useMemo(() => {
     return NO_BOTTOM_NAVIGATION_PAGES.includes(location.pathname);
@@ -74,7 +80,15 @@ export const Navigation: FC = () => {
           label={tabs[path].label}
           icon={tabs[path].icon}
           activeIcon={tabs[path].activeIcon}
-          onClick={() => navigate(path)}
+          onClick={() => {
+            if (path === ROUTES.CART && cart.length < 1) {
+              return openSnackbar({
+                text: "Chưa có sản phẩm trong giỏ hàng",
+                duration: 1000,
+              });
+            }
+            return navigate(path);
+          }}
         />
       ))}
     </BottomNavigation>

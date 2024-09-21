@@ -45,22 +45,26 @@ export const useHandlePayment = () => {
     });
 
     events.on(EventName.OnDataCallback, (resp) => {
-      const { appTransID, eventType } = resp;
-      if (appTransID || eventType === "PAY_BY_CUSTOM_METHOD") {
-        navigate("/result", {
-          state: resp,
-        });
-      }
+      console.log("data", data);
+
+      // const { appTransID, eventType } = resp;
+      // if (appTransID || eventType === "PAY_BY_CUSTOM_METHOD") {
+      //   navigate("/result", {
+      //     state: resp,
+      //   });
+      // }
     });
 
     events.on(EventName.PaymentClose, (data = {}) => {
-      const { zmpOrderId } = data;
-      navigate("/result", {
-        state: { data: { zmpOrderId } },
-      });
+      console.log("data", data);
+      // const { zmpOrderId } = data;
+      // navigate("/result", {
+      //   state: { data: { zmpOrderId } },
+      // });
     });
   }, []);
 };
+
 
 export function useToBeImplemented() {
   const snackbar = useSnackbar();

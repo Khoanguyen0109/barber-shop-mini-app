@@ -194,12 +194,6 @@ const ProfilePage: FC = () => {
             src={user.avatar.startsWith("http") ? user.avatar : undefined}
           />
           <Box>
-            <Box className="bg-orange-300 text-white rounded-full p-1 px-3">
-              <Text className="font-bold text-xs">
-                {user?.memberClass || "Chưa có hạng"}
-              </Text>
-            </Box>
-
             <Text className="font-bold ml-2 mt-1">{user.name}</Text>
           </Box>
         </Box>
