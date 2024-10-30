@@ -26,7 +26,7 @@ function DiscountList({}: Props) {
   const [confirmModalVisible, setConfirmModalVisible] = useState(false);
   const [selectDiscount, setSelectDiscount] = useState<null | TDiscount>(null);
   const { openSnackbar } = useCustomSnackbar();
-
+  console.log('discounts', discounts)
   const [userVouchers, setUserVouchers] = useRecoilState(userVouchersState);
   const [userTotalPoint, setUserTotalPoint] =
     useRecoilState(userCurrentPointState);

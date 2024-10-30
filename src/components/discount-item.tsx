@@ -18,7 +18,7 @@ function DiscountItem({ item, onClickRedeem, onChoose, onUpdateItem }: Props) {
         <Box className="">
           <Text className="text-lg font-bold">{item?.title}</Text>
 
-          {!item?.public && (
+          {!item?.public && !item.memberClass && (
             <PrimaryText className="font-semibold text-sm ">
               {item?.point || 0} Điểm
             </PrimaryText>

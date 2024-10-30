@@ -35,6 +35,7 @@ export const CartPreview: FC = () => {
   const [loading, setLoading] = useState(false);
   const quantity = useRecoilValue(totalQuantityState);
   const totalPrice = useRecoilValue(totalPriceState);
+  console.log('totalPrice', totalPrice)
   const user = useRecoilValue(userState);
   const preTotal = useRecoilValue(preTotalPriceState);
   const [note, setNote] = useRecoilState(noteState);

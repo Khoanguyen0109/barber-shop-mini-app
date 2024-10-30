@@ -16,6 +16,7 @@ import { ROUTES } from "../../routes";
 import supabase from "../../client/client";
 import { userState } from "../../state";
 import useCustomSnackbar from "../../hook/useCustomSnackbar";
+import pay from "../../utils/product";
 
 type Props = {};
 
@@ -28,11 +29,11 @@ function VerifyBooking({}: Props) {
   const time = useRecoilValue(timeSelectedState);
   const [bookingList, setBookingList] = useRecoilState(bookingListState);
   const { openSnackbar } = useCustomSnackbar();
-
+  console.log('selectServiceBooking', selectServiceBooking)
   if (!selectServiceBooking) {
     return <NotFound />;
   }
-  const onClick = async () => {
+  const callBackPayment = async () => {
     try {
       const { data } = await supabase
         .from("schedules")
@@ -53,7 +54,7 @@ function VerifyBooking({}: Props) {
         duration: 2000,
       });
       setTimeout(() => {
-        navigate(ROUTES.PAYMENT_SUCCESS);
+        navigate(ROUTES.PAYMENT_SUCCESS, { state: { from: "booking" } });
       }, 300);
     } catch (error) {
       openSnackbar({
@@ -62,6 +63,15 @@ function VerifyBooking({}: Props) {
         icon: true,
         duration: 2000,
       });
+    }
+  };
+
+  const onClick = async () => {
+    try {
+      const data = await pay(selectServiceBooking.price, callBackPayment);
+    } catch (error) {
+      console.log("error", error);
+    } finally {
     }
   };
 

@@ -17,14 +17,17 @@ function StoreDetail() {
   const [selectServiceBooking, setSelectServiceBooking] = useRecoilState(
     selectServiceBookingState
   );
+  console.log('selectServiceBooking', selectServiceBooking)
   const autoSelectService = useRecoilValue(selectServiceState);
 
   const storeServices = useRecoilValue(storeServicesSelector);
+  console.log('storeServices', storeServices)
   const [serviceSelected, setServiceSelected] = useState([]);
   if (!selectedStore) {
     return <NotFound />;
   }
   const services = storeServices?.storeServices || [];
+  console.log('services', services)
   const filterServices = useMemo(() => {
     if (serviceSelected.length === 0) {
       return services;
@@ -35,6 +38,7 @@ function StoreDetail() {
       return filters;
     }
   }, [services, serviceSelected]);
+  console.log('filterServices', filterServices)
   const onItemClick = (item, isActive) => {
     if (isActive) {
       setServiceSelected(serviceSelected.filter((ser) => ser.id !== item.id));
@@ -48,6 +52,7 @@ function StoreDetail() {
   };
 
   const onServiceItemClick = (item) => {
+    console.log('item', item)
     setSelectServiceBooking(item);
     setTimeout(() => {
       navigate(ROUTES.BOOKING);
@@ -61,6 +66,7 @@ function StoreDetail() {
       );
       onServiceItemClick({
         ...storeService.services,
+        id: storeService.id,
         price: storeService.price,
       });
     }

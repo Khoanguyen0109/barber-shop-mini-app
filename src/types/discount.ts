@@ -1,3 +1,5 @@
+import { EUserVoucherStatus } from "../constants";
+
 export type TDiscount = {
   id: number;
   voucher: string;
@@ -12,4 +14,6 @@ export type TDiscount = {
   title: string;
   minPrice: number;
   maxPrice: number;
+  status: EUserVoucherStatus
+  memberClass: string
 };

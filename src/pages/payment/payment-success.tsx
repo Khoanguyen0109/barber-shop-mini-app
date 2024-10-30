@@ -77,7 +77,13 @@ const PaymentSuccess: FC = () => {
         // // if(rs =)
         console.log("", rs.resultCode);
         if (isUndefined(rs?.resultCode) || rs.resultCode === -1) {
-          return navigate(ROUTES.CART);
+          if(state.from === 'booking'){
+            return navigate(ROUTES.VERIFY_BOOKING);
+
+          }else{
+            return navigate(ROUTES.CART);
+
+          }
         }
       },
       fail: (err) => {

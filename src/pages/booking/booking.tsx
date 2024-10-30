@@ -24,6 +24,7 @@ function Booking({}: Props) {
     useRecoilState(selectServiceState);
 
   const selectedStore = useRecoilValue(selectedStoreState);
+  console.log('selectedStore', selectedStore)
   const timeSelected = useRecoilValue(selectTimeBookingState);
   if (!selectServiceBooking || !selectedStore) {
     return <NotFound />;
